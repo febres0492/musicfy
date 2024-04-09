@@ -116,15 +116,16 @@ const getReposByTopic = async (topic) => {
 
 
   displayRepos(repos)
- 
-
+  showVideoOnClick()
 }
+
 const getReposByUser = async (user) => {
   const response = await axios.get(`https://api.github.com/users/${user}/repos`)
   let repos = response.data || "";
   if (repos === "" || `404` in repos) console.log("repo is empty")
 
   displayRepos(repos)
+
 }
 
 const getRepos = (url) => axios.get(url)
@@ -133,26 +134,27 @@ const getRepos = (url) => axios.get(url)
 const displayRepos = (repos) => {
   repoContainerEl.innerHTML = ``;
   repos.forEach((repo) => {
-    var url = `https://www.youtube.com/watch?v=${repo.id}`;
+    let url = `https://www.youtube.com/watch?v=${repo.id}`;
+    url = url.replace("watch?v=", "embed/");
+    
 
     repoContainerEl.innerHTML += 
      repo.snippet > 0 ?
-    
-   
 
     `
-    <div class="list-item flex-row justify-space-between align-center"><span>${repo.snippet.title}</span><span class="flex-row align-center"><i class="fas fa-times status-icon icon-danger"></i>${repo.open_issues} issue(s)</span></div>
+        <div class="list-item yt-link flex-row justify-space-between align-center"><span>${repo.snippet.title}</span><span class="flex-row align-center"><i class="fas fa-times status-icon icon-danger"></i>${repo.open_issues} issue(s)</span></div>
     `:
     `
-    <div class="list-item flex-row justify-space-between align-center"><span>${repo.snippet.title}</span><span class="flex-row align-center"><i class="fab fa-youtube"></i></span><a href=${url}>MyLink</a></div>
+        <div class="list-item yt-link flex-row justify-space-between align-center" data-link="${url}">
+            <span>${repo.snippet.title}</span>
+            <span class="flex-row align-center">
+                <i class="fab fa-youtube"></i>
+            </span>
+            <img src="${repo.snippet.thumbnails.medium.url}"
+            <a href=${url}>MyLink</a>
+        </div>
     `;
-
-    
-
   })
-
-
-
 }
 
 
@@ -166,7 +168,7 @@ const getReponseByThumb = async () => {
     repoContainerEl.innerHTML += 
 
     `
-    <div class="list-item flex-row justify-space-between align-center"><span></span></i>${thumbimage}</span></div>
+        <div class="list-item flex-row justify-space-between align-center"><span></span></i>${thumbimage}</span></div>
     `;
 
   })
@@ -180,8 +182,6 @@ userFormEl.addEventListener('submit', (event) => {
   console.log(`user form is clicked.`)
   const user = nameInputEl.value;
   if (user) getReposByUser(user)
-  // displayRepos(user)
-
 })
 
 languageButtonsEl.addEventListener("click", (event)=> {
@@ -196,3 +196,25 @@ languageButtonsEl.addEventListener("click", (event)=> {
 
 
 )
+
+console.log('test', $('.yt-link'))
+
+// selector function
+function $(str){
+    return document.querySelectorAll(str);
+}
+
+function showVideoOnClick(){
+    
+  [...$('.yt-link')].forEach(el => {
+    el.addEventListener('click', (event) => {
+        event.preventDefault();
+        console.log(`link was clicked`)
+        const el = event.target
+        const link = el.getAttribute('data-link')
+        $('#iframe')[0].setAttribute('src', link)
+        
+      })
+  } )
+  
+}
