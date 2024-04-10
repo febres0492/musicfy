@@ -15,15 +15,162 @@
     
 </head>
 <body>
-    <!-- header -->
-    <header>
-        <nav>
-            <!-- <button id="testBtn" type="button">Sign In </button>  -->
-        </nav>
-    </header>
-
+    <div id="root">
+        <div class="main-container">
+            <div class="navbar-container">
+                <div class="top-nav">
+                    <div class="nav-item">
+                        <span class="nav-title">Library</span>
+                    </div>
+                    <div class="nav-item">
+                        <a href="">
+                            <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                            </i>
+                            "Playlist"
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="">
+                            <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                            </i>
+                            "Artist"
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a aria-current="page" class="active" href="">
+                            <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                            </i>
+                            "Albums"
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="">
+                            <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                            </i>
+                            "Tracks"
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="">
+                            <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                            </i>
+                            "Search"
+                        </a>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item">
+                        <a aria-current="page" class="home-button" href="/">Home</a>
+                    </div>
+                </div>
+                <div class="mobile-menu">
+                    <div class="bm-overlay" style="position: fixed; z-index: 1000; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); opacity: 0; transform: translage3d(100%, 0, 0px); transition: opacity 0.3s ease 0s, transform 0s ease 0.3s;"></div>
+                    <div class="bm-burger-button" style="z-index: 1000;">
+                        <button id="react-burger-menu-btn" style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 1000%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;">Open Menu</button>
+                        <span>
+                            <span class="bm-burger-bars" style="position: absolute; height: 20%; left: 0px; right: 0px; top: 0%; opacity: 1;"></span>
+                            <span class="bm-burger-bars" style="position: absolute; height: 20%; left: 0px; right: 0px; top: 40%; opacity: 1;"></span>
+                            <span class="bm-burger-bars" style="position: absolute; height: 20%; left: 0px; right: 0px; top: 80%; opacity: 1;"></span>
+                        </span>
+                    </div>
+                </div>
+                <div id class="bm-menu-wrap" aria-hidden="true" style="position: fixed; right: inherit; z-index: 1100; width: 229px; height: 100%; transform: translate3d(-100%, 0px, 0px); transform: all 0.5s ease 0s;">
+                    <div class="bm-menu" style="height: 100%; box-sizing: border-box; overflow: auto;">
+                        <nav class="bm-item-list" style="height: 100%;">
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a href="">
+                                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                                    </i>
+                                    "Playlist"
+                                </a>
+                            </div>
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a href="">
+                                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                                    </i>
+                                    "Artist"
+                                </a>
+                            </div>
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a aria-current="page" class="active" href="">
+                                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                                    </i>
+                                    "Albums"
+                                </a>
+                            </div>
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a href="">
+                                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                                    </i>
+                                    "Tracks"
+                                </a>
+                            </div>
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a href="">
+                                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                                    </i>
+                                    "search"
+                                </a>
+                            </div>
+                            <div class="bm-item nav-item" tabindex="-1" style="display: block;">
+                                <a aria-current="page" class="home-button" href="/">Home</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div>
+                        <div class="bm-cross-button" style="position: absolute; width: 24px; height: 24px; right: 8px; top: 8px;">
+                            <button id="react-burger-cross-brn" tabindex="-1" style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; margin: 0px; padding: 0px; border: none; font-size: 0px; background: transparent; cursor: pointer;">
+                            Close Menu</button>
+                            <span style="position: absolute; top: 6px; right: 14px;">
+                                <span class="bm-cross" style="position: absolute; width: 3px; height: 14px; transform: rotate(45deg);"></span>
+                                <span class="bm-cross" style="position: absolute; width: 3px; height: 14px; transform: rotate(-45deg);"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="header-nav-button">
+                <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                    <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-flex; vertical-align: middle;"></svg>
+                </i>
+            </span>
+            <div class="page-title-small">Trending Albums</div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="page-title-large">
+            <div class="page-title-content">
+                <span class="header-nav-button">
+                    <i fill="currentColor" class="nav-icon" style="display: inline-block;">
+                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                    </i>
+                </span>
+                "Trending Albums"
+            </div>
+            <div class="wrap">
+                <form class="search">
+                    <input type="text" class="search-term" placeholder="Artist, tracks..." value>
+                    <button type="submit" class="search-button">
+                        <i fill="currentColor" class="search-icon" style="display: inline-block;">
+                            <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                        </i>
+                    </button>
+                </form>
+             </div>
+        </div>
+    </div>
     <!-- section -->
-    <section id="welcome-message">
+    <!-- <section id="welcome-message">
         <div class="container-fluid">
             <div class="row">
                 <div class="column col-3 border">
@@ -34,7 +181,7 @@
                 </div>
             </div>
         </div>
-    </section>"
+    </section>" -->
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./assets/js/main.js"></script>
