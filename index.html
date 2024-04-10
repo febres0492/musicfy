@@ -15,6 +15,7 @@
     
 </head>
 <body>
+    <!-- clickable nav bar -->
     <div id="root">
         <div class="main-container">
             <div class="navbar-container">
@@ -68,6 +69,7 @@
                         <a aria-current="page" class="home-button" href="/">Home</a>
                     </div>
                 </div>
+                <!-- this is the burger bars -->
                 <div class="mobile-menu">
                     <div class="bm-overlay" style="position: fixed; z-index: 1000; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); opacity: 0; transform: translage3d(100%, 0, 0px); transition: opacity 0.3s ease 0s, transform 0s ease 0.3s;"></div>
                     <div class="bm-burger-button" style="z-index: 1000;">
@@ -168,7 +170,71 @@
                 </form>
              </div>
         </div>
+        <!-- network error -->
+        <div class="error-message">
+            <h3>Network Error</h3>
+            <h3 class="title">
+                <i fill="currentColor" style="display: inline-block;">
+                    <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                </i>
+                "Refresh"
+            </h3>
+        </div>
     </div>
+    <!-- bottom of page -->
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="artist-image-small">
+                <img src="" alt="artistimage">
+            </div>
+            <div class="track-info">
+                <div class="footer-button-mobile">
+                    <i fill="currentColor" style="display: inline-block;">
+                        <svg fill="currentColor" height="16" width="16" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+                    </i>
+                </div>
+                <div class="artist-name">----</div>
+                <div class="track-name">----</div>
+            </div>
+        </div>
+        <div class="footer-center">
+            <div class="control-buttons"></div>
+            <i fill="currentColor" class="control-button" style="display: inline-block;">
+                <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+            </i> 
+            <i fill="currentColor" class="control-button" style="display: inline-block;">
+                <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+            </i> 
+            <i fill="currentColor" class="control-button" style="display: inline-block;">
+                <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+            </i> 
+        </div>
+        <!-- progress bar -->
+        <div class="progress-bar">
+            <div class="progress">
+                <span class="elapsed">
+                    "0"
+                    ":"
+                    "00"
+                </span>
+                <progress value="0" max="0"></progress>
+                <span class="duration">
+                    "0"
+                    ":"
+                    "00"
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-right">
+        <i fill="currentColor" class="control-button" style="display: inline-block;">
+            <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+        </i>
+        <i fill="currentColor" class="control-button" style="display: inline-block;">
+            <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
+    </div>
+    <audio></audio>
+     
     <!-- section -->
     <!-- <section id="welcome-message">
         <div class="container-fluid">
@@ -185,6 +251,9 @@
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./assets/js/main.js"></script>
+<div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
+    <div></div>
+</div>
 </body>
 </html>
 
