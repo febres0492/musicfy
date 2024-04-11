@@ -10,11 +10,13 @@ const repoSearchTerm = document.querySelector('#repo-search-term');
 //using async, await to wait until the function is complete
 const getReposByTopic = async (topic) => {
 
-  if (topic==="Most Popular by Title") {
-    topic = "mostPopular"
+  // if (topic==="Most Popular by Title") {
+  //   topic = "mostPopular"
 
-  }
-  const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&chart=${topic}&videoEmbeddable=true`)
+  // }
+  // const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&chart=${topic}&videoEmbeddable=true`)
+  const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic} z&type=video&order=title&videoEmbeddable=true`)
+  
   console.log(response.data.items)
   let repos = response.data.items
   // return response.data.items
