@@ -20,4 +20,4 @@ function getSpotifyData () {
         console.error('Error:', error);
     });
 }
-getSpotifyData()
+// getSpotifyData()

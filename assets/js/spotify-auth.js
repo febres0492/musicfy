@@ -7,4 +7,3 @@ async function getSpotifyToken () {
     localStorage.setItem('spotify_access_token', token)
 }
 getSpotifyToken()
-
