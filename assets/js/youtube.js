@@ -12,8 +12,8 @@ const getReposByTopic = async (topic) => {
 
   if (topic==="Most Popular by Title") {
     topic = "mostPopular"
-
   }
+  
   const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&chart=${topic}&videoEmbeddable=true`)
   console.log(response.data.items)
   let repos = response.data.items
