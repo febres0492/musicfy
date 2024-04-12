@@ -1,48 +1,30 @@
 const userFormEl = document.querySelector('#user-form');
-const languageButtonsEl = document.querySelector('#language-buttons');
 const nameInputEl = document.querySelector('#username');
-const repoContainerEl = document.querySelector('#repos-container');
+const repoContainerEl = document.querySelector('#video-content-div');
 const repoSearchTerm = document.querySelector('#repo-search-term');
 
 
 
 ///New code
 //using async, await to wait until the function is complete
-const getReposByTopic = async (topic) => {
+// const getYoutubeData = async (topic) => {
+//     // const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=cooking+tips&type=video&order=title&videoEmbeddable=true `
+//     const url = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true`
+//     let res = await axios.get(url)
 
-  // if (topic==="Most Popular by Title") {
-  //   topic = "mostPopular"
+//     console.log('getYoutubeData', res)
 
-  // }
-  // const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&chart=${topic}&videoEmbeddable=true`)
-  const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true`)
-  
-  console.log(response.data.items)
-  let repos = response.data.items
-  // return response.data.items
-  //Function to get all urls from the response data
-  // let repos = response.data.items.forEach(item => { console.log(item.url)} )
+//     res = response.data.items
 
+    
+//     displayYoutubeResults(res)
+//     showVideoOnClick()
+// }
 
-  displayRepos(repos)
-  showVideoOnClick()
-}
-
-const getReposByUser = async (user) => {
-  const response = await axios.get(`https://api.github.com/users/${user}/repos`)
-  let repos = response.data || "";
-  if (repos === "" || `404` in repos) console.log("repo is empty")
-
-  displayRepos(repos)
-
-}
-
-const getRepos = (url) => axios.get(url)
-
-
-const displayRepos = (repos) => {
+const displayYoutubeResults = (data) => {
+    console.log('data', data)
   repoContainerEl.innerHTML = ``;
-  repos.forEach((repo) => {
+  data.forEach((repo) => {
     let url = `https://www.youtube.com/watch?v=${repo.id}`;
     url = url.replace("watch?v=", "embed/");
     
@@ -62,47 +44,36 @@ const displayRepos = (repos) => {
   })
 }
 
-
-const getReponseByThumb = async () => {
-  let thumb = repo.snippet.thumbnails.standard.url
-  const thumbresponse = await axios.get(thumb)
-  let thumbimage = thumbresponse
-  repos.forEach((repo) => {
-    
-
-    repoContainerEl.innerHTML += 
-
-    `
-        <div class="list-item flex-row justify-space-between align-center"><span></span></i>${thumbimage}</span></div>
-    `;
-
-  })
-
-}
+const getYoutubeData = async (topic) => {
+   const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true`)
+    console.log('result',response.data.items)
+    let repos = response.data.items
+  
+    // displayYoutubeResults(repos)
+    // showVideoOnClick()
+  }
 
 
 
-userFormEl.addEventListener('submit', (event) => {
-  event.preventDefault();
-  console.log(`user form is clicked.`)
-  const user = nameInputEl.value;
-  if (user) getReposByUser(user)
-})
 
-languageButtonsEl.addEventListener("click", (event)=> {
 
-  event.preventDefault();
-  console.log(`button was clicked`)
-  const topic = event.target
 
-  if(topic) getReposByTopic(topic.textContent)
-  // displayRepos(topic.textContent)
+
+$('#searchBtn').addEventListener("click", (event)=> {
+    event.preventDefault();
+    const topic = $('#searchBar')[0].value
+
+    // if(topic) {
+    //     console.log('topic', topic)
+    //     getYoutubeData(topic.textContent)
+    // }
+
+    // displayYoutubeResults(topic.textContent)
 }
 
 
 )
 
-console.log('test', $('.yt-link'))
 
 // selector function
 function $(str){

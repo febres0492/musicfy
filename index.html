@@ -15,14 +15,58 @@
     
 </head>
 <body>
+    <!-- new changes -->
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 bdb">
+                    <h2>Musicfy</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="d-flex" id="main-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="column col-3 bdb">
+                    <input id="searchBar" type="text">
+                    <button id="searchBtn" type="submit">Search</button>
+
+                    <div id="spotify-content-div" class="bdb list-group">
+                        <!-- spotify content goes here -->
+                        spotify content goes here
+                    </div>
+                </div>
+
+                <!-- youtube content -->
+                <div class="column col-9 bdb">
+                    <div id="video-content-div">
+                        <iframe id="iframe" class="bdb" src="" frameborder="0"></iframe>
+                        <div id="video-results">
+                            video results go here
+                            <!-- video results go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- end of new changes -->
+
     <!-- clickable nav bar -->
-    <div id="root">
-        <div class="main-container">
+    <!-- <div id="root">
+        <div class="main-container border border-dark">
             <div class="navbar-container">
                 <div class="top-nav">
                     <div class="nav-item">
                         <span class="nav-title">Library</span>
                     </div>
+
+                    <input id="searchBar" type="text">
+                    <button id="searchBtn">Search</button>
+
                     <div class="nav-item">
                         <a href="">
                             <i fill="currentColor" class="nav-icon" style="display: inline-block;">
@@ -69,7 +113,6 @@
                         <a aria-current="page" class="home-button" href="/">Home</a>
                     </div>
                 </div>
-                <!-- this is the burger bars -->
                 <div class="mobile-menu">
                     <div class="bm-overlay" style="position: fixed; z-index: 1000; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); opacity: 0; transform: translage3d(100%, 0, 0px); transition: opacity 0.3s ease 0s, transform 0s ease 0.3s;"></div>
                     <div class="bm-burger-button" style="z-index: 1000;">
@@ -170,7 +213,6 @@
                 </form>
              </div>
         </div>
-        <!-- network error -->
         <div class="error-message">
             <h3>Network Error</h3>
             <h3 class="title">
@@ -181,7 +223,6 @@
             </h3>
         </div>
     </div>
-    <!-- bottom of page -->
     <div class="footer-container">
         <div class="footer-left">
             <div class="artist-image-small">
@@ -209,7 +250,6 @@
                 <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
             </i> 
         </div>
-        <!-- progress bar -->
         <div class="progress-bar">
             <div class="progress">
                 <span class="elapsed">
@@ -233,7 +273,7 @@
         <i fill="currentColor" class="control-button" style="display: inline-block;">
             <svg fill="currentColor" height="30" width="30" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;"></svg>
     </div>
-    <audio></audio>
+    <audio></audio> -->
      
     <!-- section -->
     <!-- <section id="welcome-message">
@@ -250,10 +290,9 @@
     </section>" -->
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/spotify-auth.js"></script>
     <script src="./assets/js/main.js"></script>
-<div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
-    <div></div>
-</div>
 </body>
 </html>
 
