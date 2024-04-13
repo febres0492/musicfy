@@ -46,7 +46,7 @@ async function verifySpotifyToken() {
 }
 
 // Get Spotify data
-function getSpotifyData(searchType = 'artist', query) {
+async function getSpotifyData(searchType = 'artist', query) {
     const countryCode = 'US'
     const url = {
         'artist': `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=${searchType}`,
@@ -60,10 +60,10 @@ function getSpotifyData(searchType = 'artist', query) {
         'recommendations': `https://api.spotify.com/v1/recommendations?seed_artists=${query}`,
         'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`
     }
-
+    const token = await verifySpotifyToken()
     axios.get(url[searchType], {
         headers: {
-            'Authorization': `Bearer ${verifySpotifyToken()}`,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         }
     })
@@ -78,6 +78,7 @@ function getSpotifyData(searchType = 'artist', query) {
         tokenUpdateErrorCount++
         if(tokenUpdateErrorCount > 1) return
         updateSpotifyToken()
+        
     })
 }
 
