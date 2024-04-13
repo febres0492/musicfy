@@ -20,7 +20,7 @@ async function updateSpotifyToken() {
         const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth')
         const token = JSON.stringify(response.data)
         localStorage.setItem('spotify_access_token', token)
-        console.log('Token updated')
+        console.log('updateSpotifyToken = ', response.data)
         return response.data
     } catch (error) {
         console.error('Failed to fetch Spotify token:', error)``
@@ -41,15 +41,6 @@ async function verifySpotifyToken() {
         localStorage.removeItem('spotify_access_token');
         let data = await updateSpotifyToken(); 
         return data.access_token;
-    }
-}
-
-function alertExpiredToken(error) {
-    if(error.response?.data.error.message.includes('expired')) {
-        console.log(error.response?.data.error.message)
-        localStorage.removeItem('spotify_access_token')
-        updateSpotifyToken()
-        window.alert('Token was updated. Please try again.')
     }
 }
 
@@ -81,6 +72,7 @@ function getSpotifyData(searchType = 'artist', query) {
     })
     .catch(error => {
         // updating token if it's expired
+        console.error('error:', error)
         updateSpotifyToken()
         window.alert('Token was updated. Please try again.')
     })
