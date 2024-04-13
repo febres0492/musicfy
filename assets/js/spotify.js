@@ -1,5 +1,8 @@
 
 // updating Spotify token
+
+updateSpotifyToken()
+
 const history = {
     current:null,
     stack:[],
