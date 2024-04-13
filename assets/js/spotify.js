@@ -11,32 +11,33 @@ const history = {
         if(this.stack.length === 0) return
         return this.stack.pop()
     }
-};
+}
 async function updateSpotifyToken() {
     try {
-        const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth');
-        const token = JSON.stringify(response.data); 
-        localStorage.setItem('spotify_access_token', token); 
-        console.log('Token updated:');
-        return token;
+        const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth')
+        const token = JSON.stringify(response.data)
+        localStorage.setItem('spotify_access_token', token)
+        console.log('Token updated')
+        return response.data
     } catch (error) {
-        console.error('Failed to fetch Spotify token:', error);
+        console.error('Failed to fetch Spotify token:', error)``
     }
 }
 
 function verifySpotifyToken() {
-    const obj = JSON.parse(localStorage.getItem('spotify_access_token'));
+    let obj = JSON.parse(localStorage.getItem('spotify_access_token'))
     if(!obj?.access_token){
-        console.error('No token found. Updating token...');
-        obj = updateSpotifyToken();
+        console.error('No token found. Updating token...')
+        obj = updateSpotifyToken()
     }
-    return obj
+    return obj.access_token
 }
 
 function alertExpiredToken(error) {
     if(error.response?.data.error.message.includes('expired')) {
         console.log(error.response?.data.error.message)
-        updateSpotifyToken();
+        localStorage.removeItem('spotify_access_token')
+        updateSpotifyToken()
         window.alert('Token was updated. Please try again.')
     }
 }
@@ -55,7 +56,7 @@ function getSpotifyData(searchType = 'artist', query) {
         'newReleases': `https://api.spotify.com/v1/browse/new-releases`,
         'recommendations': `https://api.spotify.com/v1/recommendations?seed_artists=${query}`,
         'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`
-    };
+    }
 
     axios.get(url[searchType], {
         headers: {
@@ -70,7 +71,7 @@ function getSpotifyData(searchType = 'artist', query) {
     .catch(error => {
         // updating token if it's expired
         alertExpiredToken(error)
-    });
+    })
 }
 
 function renderData(type, data, test = '') {
@@ -78,15 +79,17 @@ function renderData(type, data, test = '') {
     // update history current
     history.current = {'type':type, 'data':data}
 
-    const backBtnStr = '<button class="spotify-back-btn"><<<</button>'
+    const backBtnStr = '<button class="spotify-back-btn btn btn-sm border border-secondary">Back</button>'
 
     if(type == 'artist') {
-        // const searchType = Object.keys(data)[0];
-        const items = Object.values(data)[0].items;
+        // const searchType = Object.keys(data)[0]
+        const items = Object.values(data)[0].items
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
-                ${backBtnStr}
-                <h5>Spotify Results</h5>
+                <div class="d-flex">
+                    ${backBtnStr}
+                    <h5>Spotify Results</h5>
+                </div>
             </div>
         `
         // loop through the data and display it
@@ -102,16 +105,18 @@ function renderData(type, data, test = '') {
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <h5>${item.name}</h5
                 </div>
-            `;
+            `
         })
     }
 
     if(type == 'albums') {
-        const items = data.items;
+        const items = data.items
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
-                ${backBtnStr}
-                <h5>Albums</h5>
+                <div class="d-flex">
+                    ${backBtnStr}
+                    <h5>Albums</h5>
+                </div>
             </div>
         `
         // loop through the data and display it
@@ -127,16 +132,18 @@ function renderData(type, data, test = '') {
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <h5>${item.name}</h5
                 </div>
-            `;
+            `
         })
     }
 
     if(type == 'albumTracks') {
-        const items = data.items;
+        const items = data.items
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
-                ${backBtnStr}
-                <h5>Tracks</h5>
+                <div class="d-flex">
+                    ${backBtnStr}
+                    <h5>Tracks</h5>
+                </div>
             </div>
         `
         // loop through the data and display it
@@ -149,16 +156,18 @@ function renderData(type, data, test = '') {
                 <div class="track d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
                     <h5>${item.name}</h5
                 </div>
-            `;
+            `
         })
     }
 
     if(type == 'tracks') {
-        const items = data.tracks;
+        const items = data.tracks
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
-                ${backBtnStr}
-                <h5>Top Tracks</h5>
+                <div class="d-flex">
+                    ${backBtnStr}
+                    <h5>Top Tracks</h5>
+                </div>
             </div>
         `
         // loop through the data and display it
@@ -168,7 +177,7 @@ function renderData(type, data, test = '') {
                     <img src="${item.album.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <h5>${item.name}</h5
                 </div>
-            `;
+            `
         })
     }
 
