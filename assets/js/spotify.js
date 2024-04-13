@@ -1,11 +1,24 @@
 
 // updating Spotify token
+const history = {
+    current:null,
+    stack:[],
+    addToStack(obj){
+        if(obj === null) return
+        this.stack.push(obj)
+    },
+    pop(){
+        if(this.stack.length === 0) return
+        return this.stack.pop()
+    }
+};
 async function updateSpotifyToken() {
     try {
         const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth');
         const token = JSON.stringify(response.data); 
         localStorage.setItem('spotify_access_token', token); 
         console.log('Token updated:');
+        return token;
     } catch (error) {
         console.error('Failed to fetch Spotify token:', error);
     }
@@ -15,9 +28,9 @@ function verifySpotifyToken() {
     const obj = JSON.parse(localStorage.getItem('spotify_access_token'));
     if(!obj?.access_token){
         console.error('No token found. Updating token...');
-        updateSpotifyToken();
+        obj = updateSpotifyToken();
     }
-    return JSON.parse(localStorage.getItem('spotify_access_token')).access_token;
+    return obj
 }
 
 function alertExpiredToken(error) {
@@ -44,8 +57,6 @@ function getSpotifyData(searchType = 'artist', query) {
         'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`
     };
 
-    console.log('Searching for:', searchType, query);
-
     axios.get(url[searchType], {
         headers: {
             'Authorization': `Bearer ${verifySpotifyToken()}`,
@@ -53,6 +64,7 @@ function getSpotifyData(searchType = 'artist', query) {
         }
     })
     .then(r => {
+        history.addToStack(history.current)
         renderData(searchType, r.data)
     })
     .catch(error => {
@@ -61,19 +73,23 @@ function getSpotifyData(searchType = 'artist', query) {
     });
 }
 
-function renderData(type, data) {
-    console.log(type, data);
+function renderData(type, data, test = '') {
+
+    // update history current
+    history.current = {'type':type, 'data':data}
+
+    const backBtnStr = '<button class="spotify-back-btn"><<<</button>'
 
     if(type == 'artist') {
         // const searchType = Object.keys(data)[0];
         const items = Object.values(data)[0].items;
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
+                ${backBtnStr}
                 <h5>Spotify Results</h5>
             </div>
         `
         // loop through the data and display it
-        console.log('items', items)
         items.forEach(item => {
             const obj = JSON.stringify({
                 'id': item.id,
@@ -94,6 +110,7 @@ function renderData(type, data) {
         const items = data.items;
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
+                ${backBtnStr}
                 <h5>Albums</h5>
             </div>
         `
@@ -118,6 +135,7 @@ function renderData(type, data) {
         const items = data.items;
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
+                ${backBtnStr}
                 <h5>Tracks</h5>
             </div>
         `
@@ -126,8 +144,6 @@ function renderData(type, data) {
             const obj = JSON.stringify({
                 'id': item.id,
             }).replace(/"/g, '&quot;')
-
-            console.log('item', item)
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
                 <div class="track d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
@@ -141,6 +157,7 @@ function renderData(type, data) {
         const items = data.tracks;
         $('#spotify-content-div')[0].innerHTML = `
             <div id="list-container" class="p-2">
+                ${backBtnStr}
                 <h5>Top Tracks</h5>
             </div>
         `
@@ -210,23 +227,28 @@ function renderData(type, data) {
     // }
 }
 
-$('#spotify-content-div').on('click', '.pointer', (e) => {
+// manage click events
+$('#spotify-content-div').on('click', (e) => {
 
     // search data
     if(e.target.closest('.spotify-item')){
         const obj = JSON.parse(e.target.closest('.spotify-item').getAttribute('data-info'));
-        console.log('obj', obj)
         getSpotifyData(obj.searchType, obj.id)
     }
 
     // play track
     if(e.target.closest('.track')){
         const obj = JSON.parse(e.target.closest('.track').getAttribute('data-info'));
-        console.log('obj', obj,     `https://open.spotify.com/embed/track/${obj.id}`)
-
         $('#spotify-iframe')[0].setAttribute('src', `https://open.spotify.com/embed/track/${obj.id}`)
     }
+
+    // go back
+    if(e.target.closest('.spotify-back-btn') && history.stack.length > 0){
+        const last = history.pop();
+        renderData(last.type, last.data)
+    }
 });
+
 
 // searching when clicking the search button
 $('#spotifySearchBtn').on('click', ()=> {
@@ -242,31 +264,7 @@ $('#searchBar').on('keypress', (e) => {
     if(e.key === 'Enter') getSpotifyData('artist',query)
 })
 
-window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = verifySpotifyToken(); 
-    const player = new Spotify.Player({
-      name: 'Web Playback SDK Quick Start Player',
-      getOAuthToken: cb => { cb(token); }
-    });
-    
-    // Playback status updates
-    player.addListener('player_state_changed', state => { 
-        // console.log(state);
-     });
-  
-    // Ready
-    player.addListener('ready', ({ device_id }) => {
-      console.log('Ready with Device ID', device_id);
-    });
-  
-    // Not Ready
-    player.addListener('not_ready', ({ device_id }) => {
-      console.log('Device ID has gone offline', device_id);
-    });
-  
-    // Connect to the player!
-    player.connect();
-  };
+
   
 
 
