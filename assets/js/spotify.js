@@ -2,6 +2,7 @@
 // updating Spotify token
 
 updateSpotifyToken()
+let tokenUpdateErrorCount = -1
 
 const history = {
     current:null,
@@ -72,9 +73,11 @@ function getSpotifyData(searchType = 'artist', query) {
     })
     .catch(error => {
         // updating token if it's expired
-        console.error('error:', error)
-        updateSpotifyToken()
         window.alert('Token was updated. Please try again.')
+        console.error('error:', error)
+        tokenUpdateErrorCount++
+        if(tokenUpdateErrorCount > 1) return
+        updateSpotifyToken()
     })
 }
 
