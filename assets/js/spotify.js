@@ -81,7 +81,8 @@ function getSpotifyData(searchType = 'artist', query) {
     })
     .catch(error => {
         // updating token if it's expired
-        alertExpiredToken(error)
+        updateSpotifyToken()
+        window.alert('Token was updated. Please try again.')
     })
 }
 
