@@ -25,7 +25,7 @@ async function updateSpotifyToken() {
 }
 
 function verifySpotifyToken() {
-    let obj = JSON.parse(localStorage.getItem('spotify_access_token'))
+    let obj = JSON.parse(localStorage.getItem('spotify_access_token')) ||{}
     if(!obj?.access_token){
         console.error('No token found. Updating token...')
         obj = updateSpotifyToken()
