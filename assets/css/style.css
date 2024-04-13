@@ -5,14 +5,7 @@
 
 #main-section{
     min-height: 100vh;
-    border: 2px solid red;
     align-items: stretch;
-}
-
-#spotify-content-div {
-    img {
-        max-width: 100px;
-    }
 }
 
 .yt-results {
@@ -33,4 +26,34 @@
 #iframe {
     width: 100%;
     aspect-ratio: 16/9;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+#spotify-content-div {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.spotify-img {
+    max-width: 100px;
+}
+
+.spotify-img-sm{
+    max-width: 50px;
+    border: 1px solid black;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#spotify-iframe {
+    overflow: hidden;
+    height: 82px;
+    html{
+        overflow: hidden;
+    }
 }
