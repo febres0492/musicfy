@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 bdb">
-                    <h2>Musicfy - youtube</h2>
+                    <h2>Musicfy</h2>
                     <ul>
                         <a href="./index.html"> <li>Youtube</li> </a>
                         <a href="./spotify.html"><li>Spotify</li></a>
@@ -28,18 +28,21 @@
     <section class="d-flex" id="main-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-4 bdb d-flex flex-column">
-                    <input id="searchBar" type="text" value="drake">
-                    <button id="searchBtn" type="submit">Search</button>
-                </div>
+                <div class="col-12 bdb d-flex flex-column">
+                    <div class="d-flex">
+                        <input id="searchBar" type="text" value="drake">
+                        <button id="spotifySearchBtn" type="button">Search</button>
+                    </div>
+                    <div>
+                        <button type="button">Top Songs</button>
+                        <button type="button">Top Artists</button>
+                    </div>
 
-                <!-- youtube content -->
-                <div class="col-8 bdb">
-                    <div id="video-content-div">
-                        <iframe id="iframe" class="bdb" src="" frameborder="0"></iframe>
-                        <div id="video-results">
-                            <!-- video results go here -->
-                        </div>
+                    <iframe id="spotify-iframe" class="" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+                    <div id="spotify-content-div" class="bdb list-group flex-grow">
+                        <!-- spotify content goes here -->
+                        top artists
                     </div>
                 </div>
             </div>
