@@ -4,7 +4,7 @@ const nameInputEl = document.querySelector('#searchBar');
 const repoContainerEl = document.querySelector('#video-results');
 const repoSearchTerm = document.querySelector('#repo-search-term');
 
-// New code
+///New code
 //using async, await to wait until the function is complete
 const getReposByTopic = async (topic) => {
 
@@ -46,6 +46,12 @@ userFormEl.addEventListener('click', (event) => {
     if (user) {getReposByTopic(user)}
 })
 
+
+// selector function
+function $(str){
+    return document.querySelectorAll(str);
+}
+
 function showVideoOnClick(){
     
   [...$('.yt-link')].forEach(el => {
@@ -58,4 +64,3 @@ function showVideoOnClick(){
       })
   } )  
 }
-

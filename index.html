@@ -4,38 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="desctription" content="A web based music streaming platform">
-    <title>Musicfy</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Musicfy</title>    
 </head>
 <body>
     <!-- header -->
     <header>
-        <nav class="p-2">
-            <h3 class="m-0">Musicfy</h3>
-        </nav>
-    </header>
-
-    <!-- section -->
-    <section id="welcome-message">
         <div class="container-fluid">
             <div class="row">
-                <div class="column col-3 border">
-                    <input id="searchBar" type="text">
-                    <button class="btn border">Search</button>
+                <div class="col-12 bdb">
+                    <h2>Musicfy</h2>
                 </div>
-                <div class="column col-9 border">
-                    main content
+            </div>
+        </div>
+    </header>
+
+    <!-- main content -->
+    <section class="d-flex" id="main-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8 bdb d-flex flex-column">
+                    <input id="searchBar" type="text" value="drake">
+                    <button id="searchBtn" type="submit">Search</button>
+                    <button id="spotifySearchBtn" type="submit">Spotify</button>
+
+                    <iframe id="spotify-iframe" class="" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+                    <div id="spotify-content-div" class="bdb list-group flex-grow">
+                        <!-- spotify content goes here -->
+                        top artists
+                    </div>
+                </div>
+
+                <!-- youtube content -->
+                <div class="col-4 bdb">
+                    <div id="video-content-div">
+                        <iframe id="iframe" class="bdb" src="" frameborder="0"></iframe>
+                        <div id="video-results">
+                            <!-- video results go here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
+    <footer>
+        <h1>footer</h1>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./assets/js/spotify-auth.js"></script>
+    <script src="./assets/js/spotify.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>
-
