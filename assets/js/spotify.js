@@ -24,13 +24,21 @@ async function updateSpotifyToken() {
     }
 }
 
-function verifySpotifyToken() {
-    let obj = JSON.parse(localStorage.getItem('spotify_access_token')) ||{}
-    if(!obj?.access_token){
-        console.error('No token found. Updating token...')
-        obj = updateSpotifyToken()
+async function verifySpotifyToken() {
+    try {
+        const tokenString = localStorage.getItem('spotify_access_token');
+        let obj = tokenString ? JSON.parse(tokenString) : {};
+        if (!obj.access_token) {
+            console.error('no token found. Updating token');
+            obj = updateSpotifyToken(); 
+        }
+        return obj.access_token;
+    } catch (error) {
+        console.error('error:', error);
+        localStorage.removeItem('spotify_access_token');
+        let data = await updateSpotifyToken(); 
+        return data.access_token;
     }
-    return obj.access_token
 }
 
 function alertExpiredToken(error) {
