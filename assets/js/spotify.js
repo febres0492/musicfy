@@ -1,5 +1,5 @@
 
-// getArtistsByGenre('salsa');
+getArtistsByGenre('pop');
 
 $("#btn-top-artist").on('click', ()=> getArtistsByGenre('pop'))
 $(".btn-search").on('click', (ev)=> getArtistsByGenre(ev.target.value))
@@ -45,6 +45,7 @@ $('#searchBar').on('keypress', (e) => {
 
 let tokenUpdateErrorCount = -1
 
+// history object
 const history = {
     current:null,
     stack:[],
@@ -57,6 +58,8 @@ const history = {
         return this.stack.pop()
     }
 }
+
+// update Spotify token
 async function updateSpotifyToken() {
     try {
         const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth')
@@ -69,6 +72,7 @@ async function updateSpotifyToken() {
     }
 }
 
+// verify Spotify token
 async function verifySpotifyToken() {
     try {
         const tokenString = localStorage.getItem('spotify_access_token');
@@ -86,11 +90,11 @@ async function verifySpotifyToken() {
     }
 }
 
+// get artists by genre
 async function getArtistsByGenre(genre) {
     const query = `genre:"${genre}"`;
     return getSpotifyData('artist', query);
 }
-
 
 // Get Spotify data
 async function getSpotifyData(searchType = 'artist', query) {
@@ -105,7 +109,8 @@ async function getSpotifyData(searchType = 'artist', query) {
         'browseCategories': `https://api.spotify.com/v1/browse/categories`,
         'newReleases': `https://api.spotify.com/v1/browse/new-releases`,
         'recommendations': `https://api.spotify.com/v1/recommendations?seed_artists=${query}`,
-        'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`
+        'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`,
+        'test': `https://api.spotify.com/v1/search?q=genre%3A%22hip-hop%22&type=track&limit=10&offset=5`
     }
 
     console.log('url', url[searchType])
@@ -118,6 +123,7 @@ async function getSpotifyData(searchType = 'artist', query) {
         }
     })
     .then(r => {
+        console.log('r.data', r.data)
         history.addToStack(history.current)
         renderData(searchType, r.data)
     })
