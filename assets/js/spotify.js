@@ -1,7 +1,48 @@
 
-// updating Spotify token
+// getArtistsByGenre('salsa');
 
-updateSpotifyToken()
+$("#btn-top-artist").on('click', ()=> getArtistsByGenre('pop'))
+$(".btn-search").on('click', (ev)=> getArtistsByGenre(ev.target.value))
+$("#btn-categories").on('click', ()=> getSpotifyData('browseCategories'))
+
+// manage click events
+$('#spotify-content-div').on('click', (e) => {
+
+    // search data
+    if(e.target.closest('.spotify-item')){
+        const obj = JSON.parse(e.target.closest('.spotify-item').getAttribute('data-info'));
+        getSpotifyData(obj.searchType, obj.id)
+    }
+
+    // play track
+    if(e.target.closest('.track')){
+        const obj = JSON.parse(e.target.closest('.track').getAttribute('data-info'));
+        $('#spotify-iframe')[0].setAttribute('src', `https://open.spotify.com/embed/track/${obj.id}`)
+    }
+
+    // go back
+    if(e.target.closest('.spotify-back-btn') && history.stack.length > 0){
+        const last = history.pop();
+        renderData(last.type, last.data)
+    }
+});
+
+
+// searching when clicking the search button
+$('#spotifySearchBtn').on('click', ()=> {
+    const query = $('#searchBar')[0].value; 
+    if(query.length === 0) return 
+    getSpotifyData('artist',query)
+})
+
+// searching when pressing Enter
+$('#searchBar').on('keypress', (e) => {
+    const query = $('#searchBar')[0].value; 
+    if(query.length === 0) return 
+    if(e.key === 'Enter') getSpotifyData('artist',query)
+})
+
+
 let tokenUpdateErrorCount = -1
 
 const history = {
@@ -45,6 +86,12 @@ async function verifySpotifyToken() {
     }
 }
 
+async function getArtistsByGenre(genre) {
+    const query = `genre:"${genre}"`;
+    return getSpotifyData('artist', query);
+}
+
+
 // Get Spotify data
 async function getSpotifyData(searchType = 'artist', query) {
     const countryCode = 'US'
@@ -60,6 +107,9 @@ async function getSpotifyData(searchType = 'artist', query) {
         'recommendations': `https://api.spotify.com/v1/recommendations?seed_artists=${query}`,
         'albumTracks': `https://api.spotify.com/v1/albums/${query}/tracks`
     }
+
+    console.log('url', url[searchType])
+
     const token = await verifySpotifyToken()
     axios.get(url[searchType], {
         headers: {
@@ -78,7 +128,6 @@ async function getSpotifyData(searchType = 'artist', query) {
         tokenUpdateErrorCount++
         if(tokenUpdateErrorCount > 1) return
         updateSpotifyToken()
-        
     })
 }
 
@@ -243,46 +292,5 @@ function renderData(type, data, test = '') {
     //     })
     // }
 }
-
-// manage click events
-$('#spotify-content-div').on('click', (e) => {
-
-    // search data
-    if(e.target.closest('.spotify-item')){
-        const obj = JSON.parse(e.target.closest('.spotify-item').getAttribute('data-info'));
-        getSpotifyData(obj.searchType, obj.id)
-    }
-
-    // play track
-    if(e.target.closest('.track')){
-        const obj = JSON.parse(e.target.closest('.track').getAttribute('data-info'));
-        $('#spotify-iframe')[0].setAttribute('src', `https://open.spotify.com/embed/track/${obj.id}`)
-    }
-
-    // go back
-    if(e.target.closest('.spotify-back-btn') && history.stack.length > 0){
-        const last = history.pop();
-        renderData(last.type, last.data)
-    }
-});
-
-
-// searching when clicking the search button
-$('#spotifySearchBtn').on('click', ()=> {
-    const query = $('#searchBar')[0].value; 
-    if(query.length === 0) return 
-    getSpotifyData('artist',query)
-})
-
-// searching when pressing Enter
-$('#searchBar').on('keypress', (e) => {
-    const query = $('#searchBar')[0].value; 
-    if(query.length === 0) return 
-    if(e.key === 'Enter') getSpotifyData('artist',query)
-})
-
-
-  
-
 
 
