@@ -1,4 +1,5 @@
 const userFormEl = document.querySelector('#searchBtn');
+const topicSearchEl = document.querySelector('#searchByBtn')
 const languageButtonsEl = document.querySelector('#language-buttons');
 const nameInputEl = document.querySelector('#searchBar');
 const repoContainerEl = document.querySelector('#video-results');
@@ -46,7 +47,12 @@ userFormEl.addEventListener('click', (event) => {
     if (user) {getReposByTopic(user)}
 })
 
-
+topicSearchEl.addEventListener('click', (event) => {
+  event.preventDefault();
+  const topic = event.target
+  console.log(`user form is clicked.`, topic.textContent)
+  if (topic) {getReposByTopic(topic.textContent)}
+})
 // selector function
 function $(str){
     return document.querySelectorAll(str);
