@@ -21,8 +21,28 @@ const repoSearchTerm = document.querySelector('#repo-search-term');
 //     showVideoOnClick()
 // }
 
+
 const displayYoutubeResults = (data) => {
     console.log('data', data)
+  displayRepos(repos)
+  showVideoOnClick()
+}
+
+const getReposByUser = async (topic) => {
+  const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true`)
+  console.log(response.data.items)
+  let repos = response.data.items
+
+
+  displayRepos(repos)
+  showVideoOnClick()
+
+}
+
+const getRepos = (url) => axios.get(url)
+
+
+const displayRepos = (repos) => {
   repoContainerEl.innerHTML = ``;
   data.forEach((repo) => {
     let url = `https://www.youtube.com/watch?v=${repo.id}`;
