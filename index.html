@@ -7,18 +7,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Musicfy</title>
+    
 </head>
 <body>
     <!-- new changes -->
-    <header>
+    <header class="bg-secondary">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 bdb">
-                    <h2>Musicfy - youtube</h2>
-                    <ul>
-                        <a href="./index.html"> <li>Youtube</li> </a>
-                        <a href="./spotify.html"><li>Spotify</li></a>
-                    </ul>
+                <div class="col-12 d-flex flex-column flex-md-row py-3 ">
+                    <div class="d-flex">
+                        <h3 class="text-white">Musicfy</h3>
+                        <ul class="d-flex gap-2">
+                            <a href="./index.html"> <li class="d-inline-block btn btn-sm text-white border ">Youtube</li> </a>
+                            <a href="./spotify.html"><li class="d-inline-block btn btn-sm text-white border">Spotify</li></a>
+                        </ul>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row ml-md-auto">
+                        <input id="searchBar" class="rounded mb-2" type="text" value="drake">
+                        <button id="searchBtn" class="border rounded py-0 px-3 bg-primary text-white" type="submit">Search</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,15 +35,18 @@
     <section class="d-flex" id="main-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-4 bdb d-flex flex-column">
-                    <input id="searchBar" type="text" value="drake">
-                    <button id="searchBtn" type="submit">Search</button>
+                <div class="col-3 bdb  d-flex flex-column pt-4 gap-2">
+                    <h5>Search BY:</h5>
+                    <button class="searchBtn btn border btn-sm" type="submit">Top Artists</button>
+                    <button class="searchBtn btn border btn-sm" type="submit">Top Tracks</button>
+                    <button class="searchBtn btn border btn-sm" type="submit">Hip Hop Vidoes</button>
+
                 </div>
 
                 <!-- youtube content -->
-                <div class="col-8 bdb">
+                <div class="col-9 bdb">
+                    <iframe id="iframe" class="d-none bdb" src="" frameborder="0"></iframe>
                     <div id="video-content-div">
-                        <iframe id="iframe" class="bdb" src="" frameborder="0"></iframe>
                         <div id="video-results">
                             <!-- video results go here -->
                         </div>

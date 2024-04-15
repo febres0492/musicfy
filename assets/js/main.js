@@ -57,6 +57,7 @@ function showVideoOnClick(){
   [...$('.yt-link')].forEach(el => {
     el.addEventListener('click', (event) => {
         event.preventDefault();
+        $('#iframe')[0].classList.remove('d-none')
         console.log(`link was clicked`)
         const el = event.target.closest('.yt-link')
         const link = el.getAttribute('data-link')

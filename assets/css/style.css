@@ -1,6 +1,13 @@
-
 .bdb {
     border: 1px solid black;
+}
+.ml-auto {
+    margin-left: auto;
+}
+@media screen and (min-width: 768px){
+    .ml-md-auto {
+        margin-left: auto;
+    }
 }
 
 #main-section{
