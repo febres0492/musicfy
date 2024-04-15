@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- new changes -->
-    <header class="bg-secondary">
+    <header class="bg-1 ">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 d-flex flex-column flex-md-row py-3 ">
@@ -29,22 +29,24 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> 
 
     <!-- main content -->
     <section class="d-flex" id="main-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-3 bdb  d-flex flex-column pt-4 gap-2">
+        <div class="container-fluid ">
+            <div class="row h-100">
+                <div class="col-3 bg-1 text-white d-flex flex-column py-4">
                     <h5>Search BY:</h5>
-                    <button class="searchBtn btn border btn-sm" type="submit">Top Artists</button>
-                    <button class="searchBtn btn border btn-sm" type="submit">Top Tracks</button>
-                    <button class="searchBtn btn border btn-sm" type="submit">Hip Hop Vidoes</button>
+                    <div id="searchByBtn" class="d-flex flex-column gap-2">
+                        <button class="searchBtn btn border text-white btn-sm" type="submit">Top Artists</button>
+                        <button class="searchBtn btn border text-white btn-sm" type="submit">Top Tracks</button>
+                        <button class="searchBtn btn border text-white btn-sm" type="submit">Hip Hop Vidoes</button>
+                    </div>
 
                 </div>
 
                 <!-- youtube content -->
-                <div class="col-9 bdb">
+                <div class="col-9">
                     <iframe id="iframe" class="d-none bdb" src="" frameborder="0"></iframe>
                     <div id="video-content-div">
                         <div id="video-results">
