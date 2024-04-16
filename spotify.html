@@ -9,11 +9,14 @@
     <title>Musicfy</title>    
 </head>
 <body class="d-flex flex-column bg-c1 text-white">
-    <!-- header -->
-    <header>
-        <div class="container-fluid">
+
+    <!-- main content -->
+    <section id="main-section" class="d-flex flex-column">
+        
+        <div class="container d-flex flex-column bg-d1 px-4">
+            <!-- header -->
             <div class="row">
-                <div class="col-12 pt-2 d-flex">
+                <div class="col-12 pt-3 d-flex">
                     <h2 class="mr-auto">Musicfy</h2>
                     <ul class="d-flex gap-2">
                         <a href="./index.html">  <li class="btn border btn-sm">Youtube</li> </a>
@@ -21,24 +24,24 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </header>
 
-    <!-- main content -->
-    <section id="main-section" class="d-flex">
-        <div class="container-fluid">
+            <!-- iframe contanier -->
             <div class="row">
                 <div class="col-12 mb-2">
                     <iframe id="spotify-iframe" class="w-100" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
-                <div class="col-12 col-sm-4 d-flex flex-sm-column pb-3 ">
+            </div>
+
+            <!-- search bar and spotify content -->
+            <div class="row align-content-start fg">
+                <div class="col-12 col-md-4 d-flex flex-md-column pb-3">
                     <div class="bg-d1 p-2 rounded w-100">
                         <div class="d-flex mb-2">
                             <input id="searchBar" class="w-75" type="text" placeholder="Search">
                             <button id="spotifySearchBtn" class="btn bg-primary w-25" type="button">></button>
                         </div>
-                        <div class="col-12 d-flex flex-column  p-sm-0 rounded-1 ">
-                            <div class="d-flex flex-sm-column gap-1 overflow-hidden overflow-sm-scroll text-nowrap">
+                        <div class="col-12 d-flex flex-column  p-md-0 rounded-1 ">
+                            <div class="d-flex flex-md-column gap-1 overflow-hidden overflow-md-scroll text-nowrap">
                                 <button id="btn-top-artist" class="btn btn-sm border" type="button">Top Artists</button>
                                 <button class="btn-search btn btn-sm border" type="button" value="hip-hop">Hip hop</button>
                                 <button class="btn-search btn btn-sm border" type="button" value="r&b">R&B</button>
@@ -51,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-8 d-flex flex-column">
+                <div class="col-12 col-md-8 fg">
                     <div id="spotify-content-div" class="list-group flex-grow bg-d1 p-2">
                         <!-- spotify content goes here -->
                     </div>

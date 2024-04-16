@@ -1,6 +1,12 @@
 .bdb {
     border: 1px solid black;
 }
+.bdw{
+    border: 1px solid white;
+}
+.bdr {
+    border: 1px solid red;
+}
 .ml-auto {
     margin-left: auto;
 }
@@ -29,8 +35,12 @@
     height: 100%;
 }
 
+.fg{
+    flex-grow: 1;
+}
+
 #main-section{
-    min-height: 100vh;
+    /* min-height: 93vh; */
     align-items: stretch;
 }
 
@@ -78,7 +88,7 @@
 }
 
 #spotify-content-div {
-    max-height: 500px;
+    /* max-height: 90%; */
     overflow-y: auto;
 }
 
@@ -124,3 +134,4 @@
 .text-white * {
     color: white;
 }
+

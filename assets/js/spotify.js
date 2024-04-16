@@ -3,6 +3,11 @@ updateSpotifyToken()
 // getArtistsByGenre('pop');
 getSpotifyData('browseCategories')
 
+
+
+// making body height the same as window height
+document.body.style.height = `${window.innerHeight}px`
+
 $("#btn-top-artist").on('click', ()=> getArtistsByGenre('pop'))
 $(".btn-search").on('click', (ev)=> getArtistsByGenre(ev.target.value))
 $("#btn-categories").on('click', ()=> getSpotifyData('browseCategories'))
