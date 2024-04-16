@@ -1,8 +1,6 @@
 
 updateSpotifyToken()
-// getArtistsByGenre('pop');
-getSpotifyData('browseCategories')
-
+getArtistsByGenre('pop');
 
 
 // making body height the same as window height
