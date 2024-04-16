@@ -1,5 +1,5 @@
 
-// updateSpotifyToken()
+updateSpotifyToken()
 // getArtistsByGenre('pop');
 getSpotifyData('browseCategories')
 
