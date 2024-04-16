@@ -13,11 +13,11 @@
     <header>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 bdb">
-                    <h2>Musicfy</h2>
-                    <ul>
-                        <a href="./index.html"> <li>Youtube</li> </a>
-                        <a href="./spotify.html"><li>Spotify</li></a>
+                <div class="col-12 pt-2 d-flex">
+                    <h2 class="mr-auto">Musicfy</h2>
+                    <ul class="d-flex gap-2">
+                        <a href="./index.html">  <li class="btn border btn-sm">Youtube</li> </a>
+                        <a href="./spotify.html"><li class="btn border btn-sm">Spotify</li></a>
                     </ul>
                 </div>
             </div>
@@ -28,45 +28,35 @@
     <section class="d-flex" id="main-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 d-flex">
-
-                    <iframe id="spotify-iframe" class="" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
+                <div class="col-12 mb-2">
+                    <iframe id="spotify-iframe" class="w-100" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
-                <div class="col-12 col-sm-4 col-md-3 bdb d-flex flex-wrap flex-sm-column">
-                    <div class="col-12 d-flex flex-sm-column bdb">
-                        <button id="btn-top-artist" type="button">Top Artists</button>
-                        <button class="btn-search" type="button" value="newReleases">New Releases</button>
+                <div class="col-12 col-sm-4 d-flex flex-wrap pt-2 flex-sm-column text-white bg-secondary">
+                    <div class="d-flex mb-2">
+                        <input id="searchBar" class="w-75" type="text" placeholder="Search">
+                        <button id="spotifySearchBtn" class="btn bg-primary w-25" type="button">></button>
                     </div>
-                    <div class="col-12 d-flex flex-sm-column bdb p-2">
-                        <h5>Categories:</h5>
-                        <button class="btn-search" type="button" value="hip-hop">Hip hop</button>
-                        <button class="btn-search" type="button" value="r&b">R&B</button>
-                        <button class="btn-search" type="button" value="edm">EDM</button>
-                        <button class="btn-search" type="button" value="salsa">Salsa</button>
-                        <button class="btn-search" type="button" value="bachata">Bachata</button>
-                        <button class="btn-search" type="button" value="rock">Rock</button>
-                        <button id="btn-categories" type="button" >More ></button>
+                    <div class="col-12 d-flex flex-column pb-2 p-sm-0 text-white rounded-1 ">
+                        <div class="d-flex flex-sm-column gap-1 overflow-hidden overflow-sm-scroll text-nowrap">
+                            <button id="btn-top-artist" class="btn btn-sm border bg-secondary" type="button">Top Artists</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="hip-hop">Hip hop</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="r&b">R&B</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="edm">EDM</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="salsa">Salsa</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="bachata">Bachata</button>
+                            <button class="btn-search btn btn-sm border" type="button" value="rock">Rock</button>
+                            <button id="btn-categories" class="btn btn-sm border" type="button" >More ></button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-8 col-md-9 bdb d-flex flex-column">
-                    
-                    <div class="d-flex">
-                        <input id="searchBar" type="text" placeholder="Search">
-                        <button id="spotifySearchBtn" type="button">Search</button>
-                    </div>
-                    <div id="spotify-content-div" class="bdb list-group flex-grow">
+                <div class="col-12 col-sm-8   d-flex flex-column">
+                    <div id="spotify-content-div" class="list-group flex-grow pt-3 pt-sm-0">
                         <!-- spotify content goes here -->
-                        top artists
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer>
-        <h1>footer</h1>
-    </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

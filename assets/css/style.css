@@ -8,6 +8,14 @@
     align-items: stretch;
 }
 
+.mr-auto {
+    margin-right: auto;
+}
+
+.rel { position: relative;
+}
+.abs { position: absolute; }
+
 .yt-results {
     display: flex;
     flex-wrap: wrap;
@@ -34,6 +42,10 @@
 
 #spotify-content-div {
     max-height: 500px;
+    /* overflow-y: auto; */
+}
+
+.scrollable {
     overflow-y: auto;
 }
 
@@ -56,4 +68,8 @@
     html{
         overflow: hidden;
     }
+}
+
+.text-white * {
+    color: white;
 }
