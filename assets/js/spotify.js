@@ -123,7 +123,7 @@ async function getSpotifyData(searchType = 'artist', query) {
         'href': query
     }
 
-    console.log('url', url[searchType])
+    // console.log('url', url[searchType])
 
     const token = await verifySpotifyToken()
     axios.get(url[searchType], {
@@ -142,7 +142,7 @@ async function getSpotifyData(searchType = 'artist', query) {
         if(tokenUpdateErrorCount > 1) return
         // updating token if it's expired
         updateSpotifyToken()
-        window.alert('Token was updated. Please try again.')
+        // window.alert('Token was updated. Please try again.')
     })
 }
 
@@ -150,8 +150,8 @@ function renderData(type, data) {
 
     // update history current
     history.current = {'type':type, 'data':data}
-    console.log('------------------------------------------------------')
-    console.log('type', type, 'data', data)
+    // console.log('------------------------------------------------------')
+    // console.log('type', type, 'data', data)
 
     $('#spotify-content-div')[0].innerHTML = `
         <div class="d-flex gap-2 align-items-center pb-2">
@@ -170,13 +170,13 @@ function renderData(type, data) {
     }
 
     if(type == 'artist') {
-        console.log('render', type)
+        // console.log('render', type)
         // loop through the data and display it
         const items = Object.values(data)[0].items
         items.forEach((item,i) => {
-            i == 0 && console.log('item', item)
+            // i == 0 && console.log('item', item)
             let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type] }
-            console.log('obj', obj)
+            // console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -194,14 +194,14 @@ function renderData(type, data) {
     } 
 
     if(type == 'albums') {
-        console.log('render', type)
+        // console.log('render', type)
         // loop through the data and display it
         const items = data.items
         items.forEach((item,i) => {
-            i == 0 && console.log('item', item)
+            // i == 0 && console.log('item', item)
 
             let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type] }
-            console.log('obj', obj)
+            // console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -219,14 +219,14 @@ function renderData(type, data) {
     }
 
     if(type == 'albumTracks') {
-        console.log('render', type)
+        // console.log('render', type)
         $('#spotify-content-div #resultTitle')[0].innerText = capFirst(searchTypes[type])
 
         // loop through the data and display it
         const items = data.items
         items.forEach((item, i) => {
             let obj = { 'query': item.id, 'searchType':searchTypes[type] || null }
-            i<2 && console.log('obj', obj)
+            // i<2 && console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -239,21 +239,21 @@ function renderData(type, data) {
     }
 
     if(type == 'category') {
-        console.log('render', type)
+        // console.log('render', type)
         
         $('#spotify-content-div #resultTitle')[0].innerText = capFirst(data.message)
         
         // loop through the data and display it
         const items = data.playlists.items
         items.forEach((item,i) => {
-            i<5 && console.log('item', item)
+            // i<5 && console.log('item', item)
 
 
             // searchTypes[type] = 'playlistDetails'
             searchTypes[type] = 'href'
 
             let obj = { 'query': item.tracks.href, 'searchType':searchTypes[type] }
-            i<5 && console.log('obj', obj)
+            // i<5 && console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
 
@@ -270,13 +270,13 @@ function renderData(type, data) {
         return
     }
     if(type == 'tracks') {
-        console.log('render', type)
+        // console.log('render', type)
         // loop through the data and display it
         const items = data.tracks
         items.forEach((item,i) => {
 
             let obj = { 'query': item.id, 'searchType':searchTypes[type] }
-            console.log('obj', obj)
+            // console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -290,7 +290,7 @@ function renderData(type, data) {
     }
 
     if(type == 'href') {
-        console.log('render', type)
+        // console.log('render', type)
         if(data.items) {
             data.items.forEach((item, i) => {
                 
@@ -302,8 +302,8 @@ function renderData(type, data) {
                     $('#spotify-content-div #resultTitle')[0].innerText = 'Tracks'
         
                     let obj = { 'query': track.id}
-                    i < 1 && console.log('track render item', item)
-                    i < 1 && console.log('obj', obj)
+                    // i < 1 && console.log('track render item', item)
+                    // i < 1 && console.log('obj', obj)
                     obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
                     $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -324,8 +324,8 @@ function renderData(type, data) {
                 const artitsts = track.artists.map(a => a.name).join(', ')
     
                 let obj = { 'query': item.id, 'type': item.type, 'searchType': searchTypes[type] }
-                i < 1 && console.log('default render, item', item)
-                i < 1 && console.log('obj', obj)
+                // i < 1 && console.log('default render, item', item)
+                // i < 1 && console.log('obj', obj)
                 obj = JSON.stringify(obj).replace(/"/g, '&quot;')
         
                 $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -346,7 +346,7 @@ function renderData(type, data) {
     // if playlists
     const keys = Object.keys(data)
     if(keys.indexOf('playlists')>-1) {
-        console.log('playlists', data.playlists)
+        // console.log('playlists', data.playlists)
 
         $('#spotify-content-div #resultTitle')[0].innerText = capFirst(data.message)
 
@@ -355,7 +355,7 @@ function renderData(type, data) {
         items.forEach((item,i) => {
 
         let obj = { 'query': item.id, 'searchType':searchTypes[type] }
-        console.log('obj', obj)
+        // console.log('obj', obj)
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -380,8 +380,8 @@ function renderData(type, data) {
         if(item.name === 'Made For You') return // Made For You gives no results
 
         let obj = { 'query': item.id, 'type': item.type, 'searchType': searchTypes[type] }
-        i < 1 && console.log('type',type, 'item', item)
-        i < 1 && console.log('obj', obj)
+        // i < 1 && console.log('type',type, 'item', item)
+        // i < 1 && console.log('obj', obj)
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
         $('#spotify-content-div #list-container')[0].innerHTML += `
