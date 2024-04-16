@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Musicfy</title>    
 </head>
-<body>
+<body class="d-flex flex-column bg-c1 text-white">
     <!-- header -->
-    <header class="bg-1">
+    <header>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 d-flex flex-column flex-md-row py-3 bdb">
-                    <h2 class="text-white">Musicfy</h2>
-                    <ul>
-                        <a href="./index.html"> <li class="d-inline-block btn btn-sm text-white border">Youtube</li> </a>
-                        <a href="./spotify.html"><li class="d-inline-block btn btn-sm text-white border">Spotify</li></a>
+                <div class="col-12 pt-2 d-flex">
+                    <h2 class="mr-auto">Musicfy</h2>
+                    <ul class="d-flex gap-2">
+                        <a href="./index.html">  <li class="btn border btn-sm">Youtube</li> </a>
+                        <a href="./spotify.html"><li class="btn border btn-sm">Spotify</li></a>
                     </ul>
                 </div>
             </div>
@@ -25,37 +25,43 @@
     </header>
 
     <!-- main content -->
-    <section class="d-flex" id="main-section">
+    <section id="main-section" class="d-flex">
         <div class="container-fluid">
-            <div class="row h-100">
-                <div class="col-12 d-flex flex-column bg-2 p-3">
-                    <div class="d-flex flex-column flex-md-row ml-md-auto">
-                        <input id="searchBar" class="rounded mb-4" type="text" value="drake">
-                        <button id="spotifySearchBtn" class="border rounded py-0 px-3 bg-primary text-white" type="button">Search</button>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <iframe id="spotify-iframe" class="w-100" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </div>
+                <div class="col-12 col-sm-4 d-flex flex-sm-column pb-3 ">
+                    <div class="bg-d1 p-2 rounded w-100">
+                        <div class="d-flex mb-2">
+                            <input id="searchBar" class="w-75" type="text" placeholder="Search">
+                            <button id="spotifySearchBtn" class="btn bg-primary w-25" type="button">></button>
+                        </div>
+                        <div class="col-12 d-flex flex-column  p-sm-0 rounded-1 ">
+                            <div class="d-flex flex-sm-column gap-1 overflow-hidden overflow-sm-scroll text-nowrap">
+                                <button id="btn-top-artist" class="btn btn-sm border" type="button">Top Artists</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="hip-hop">Hip hop</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="r&b">R&B</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="edm">EDM</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="salsa">Salsa</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="bachata">Bachata</button>
+                                <button class="btn-search btn btn-sm border" type="button" value="rock">Rock</button>
+                                <button id="btn-categories" class="btn btn-sm border" type="button" >More ></button>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <button class="searchBtn btn border text-white btn-lg" type="button">Top Songs</button>
-                        <button class="searchBtn btn border text-white btn-lg" type="button">Top Artists</button>
-                    </div>
-
-                    <iframe id="spotify-iframe" class="py-1" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-                    <div id="spotify-content-div" class=" list-group flex-grow text-white text-center">
+                </div>
+                <div class="col-12 col-sm-8 d-flex flex-column">
+                    <div id="spotify-content-div" class="list-group flex-grow bg-d1 p-2">
                         <!-- spotify content goes here -->
-                        <h1>Top Artists</h1>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- <footer>
-        <h1>footer</h1>
-    </footer> -->
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./assets/js/spotify.js"></script>
-    <script src="./assets/js/main.js"></script>
 </body>
 </html>
