@@ -1,7 +1,7 @@
 
-updateSpotifyToken()
 getArtistsByGenre('pop');
 
+$('#modalCloseBtn').on('click', ()=> $('#modal').hide())
 
 // making body height the same as window height
 document.body.style.height = `${window.innerHeight}px`
@@ -140,9 +140,10 @@ async function getSpotifyData(searchType = 'artist', query) {
         console.error('error:', error)
         tokenUpdateErrorCount++
         if(tokenUpdateErrorCount > 1) return
+        
         // updating token if it's expired
         updateSpotifyToken()
-        // window.alert('Token was updated. Please try again.')
+        $('#modal').show();
     })
 }
 
