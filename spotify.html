@@ -10,14 +10,14 @@
 </head>
 <body>
     <!-- header -->
-    <header>
+    <header class="bg-1">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 bdb">
-                    <h2>Musicfy</h2>
+                <div class="col-12 d-flex flex-column flex-md-row py-3 bdb">
+                    <h2 class="text-white">Musicfy</h2>
                     <ul>
-                        <a href="./index.html"> <li>Youtube</li> </a>
-                        <a href="./spotify.html"><li>Spotify</li></a>
+                        <a href="./index.html"> <li class="d-inline-block btn btn-sm text-white border">Youtube</li> </a>
+                        <a href="./spotify.html"><li class="d-inline-block btn btn-sm text-white border">Spotify</li></a>
                     </ul>
                 </div>
             </div>
@@ -27,20 +27,20 @@
     <!-- main content -->
     <section class="d-flex" id="main-section">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 bdb d-flex flex-column">
-                    <div class="d-flex">
-                        <input id="searchBar" type="text" value="drake">
-                        <button id="spotifySearchBtn" type="button">Search</button>
+            <div class="row h-100">
+                <div class="col-12 d-flex flex-column bg-2 p-3">
+                    <div class="d-flex flex-column flex-md-row ml-md-auto">
+                        <input id="searchBar" class="rounded mb-4" type="text" value="drake">
+                        <button id="spotifySearchBtn" class="border rounded py-0 px-3 bg-primary text-white" type="button">Search</button>
                     </div>
                     <div>
-                        <button type="button">Top Songs</button>
-                        <button type="button">Top Artists</button>
+                        <button class="searchBtn btn border text-white btn-sm" type="button">Top Songs</button>
+                        <button class="searchBtn btn border text-white btn-sm" type="button">Top Artists</button>
                     </div>
 
-                    <iframe id="spotify-iframe" class="" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    <iframe id="spotify-iframe" class="py-1" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-                    <div id="spotify-content-div" class="bdb list-group flex-grow">
+                    <div id="spotify-content-div" class=" list-group flex-grow">
                         <!-- spotify content goes here -->
                         top artists
                     </div>
@@ -49,9 +49,9 @@
         </div>
     </section>
 
-    <footer>
+    <!-- <footer>
         <h1>footer</h1>
-    </footer>
+    </footer> -->
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
