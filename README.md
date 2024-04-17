@@ -1,6 +1,6 @@
 # Musicfy
 
-![Musicfy Snapshot](snapshot-url)  <!-- Replace 'snapshot-url' with the actual URL of the image snapshot -->
+![Musicfy Snapshot](./assets/Screenshot.jpg)  <!-- Replace 'snapshot-url' with the actual URL of the image snapshot -->
 
 Musicfy is a dynamic web application designed to bring your favorite music and videos from YouTube and Spotify to one place. Explore music and videos using an intuitive interface powered by the YouTube and Spotify APIs.
 
