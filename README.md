@@ -4,7 +4,7 @@
 
 Musicfy is a dynamic web application designed to bring your favorite music and videos from YouTube and Spotify to one place. Explore music and videos using an intuitive interface powered by the YouTube and Spotify APIs.
 
-**Live Application**: [Visit Musicfy]([https://febres0492.github.io/musicfy])  <!-- Replace 'live-application-url' with the actual URL -->
+**Live Application**: [Visit Musicfy](https://febres0492.github.io/musicfy)  <!-- Replace 'live-application-url' with the actual URL -->
 
 ## Features
 
