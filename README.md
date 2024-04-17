@@ -28,8 +28,15 @@ Musicfy is a dynamic web application designed to bring your favorite music and v
 - AJAX
 
 ## Collaborators
+<<<<<<< Updated upstream
 - Carlos Ferbes
 - Mike Smith
 - Faisal Salam
 - Andrea Estevez
 - Corey G
+=======
+- Carlos Febres
+- Faisal S. Salam
+- Mike Reilly
+- Andrea Estevez
+>>>>>>> Stashed changes

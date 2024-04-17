@@ -69,8 +69,6 @@
     flex-direction: column ;
 }
 
-
-
 .df {
     display: flex;
     flex-wrap: wrap;
@@ -92,13 +90,34 @@
     overflow-y: auto;
 }
 
+.spotify-item, .track {
+
+    display: flex ;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 14px;
+    background-color: rgba(0,0,0,0.32);
+
+    h5 {
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+        margin: 0;
+        padding: 0
+    }
+}
+
 .spotify-img {
     max-width: 100px;
 }
 
 .spotify-img-sm{
-    max-width: 50px;
-    border: 1px solid black;
+    max-height: 90px;
+    aspect-ratio: 1/1;
+    margin-right: 14px;
 }
 
 .pointer {
@@ -131,7 +150,7 @@
     flex-shrink: 0; 
 }
 
-.text-white * {
+.text-white *:not(input) {
     color: white;
 }
 

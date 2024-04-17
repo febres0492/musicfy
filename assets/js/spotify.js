@@ -1,13 +1,16 @@
 
 getArtistsByGenre('pop');
 
+// close modal
 $('#modalCloseBtn').on('click', ()=> $('#modal').hide())
 
-// making body height the same as window height
-document.body.style.height = `${window.innerHeight}px`
-
+// getting pop artists
 $("#btn-top-artist").on('click', ()=> getArtistsByGenre('pop'))
+
+// getting btn value 
 $(".btn-search").on('click', (ev)=> getArtistsByGenre(ev.target.value))
+
+// getting categories
 $("#btn-categories").on('click', ()=> getSpotifyData('browseCategories'))
 
 // manage click events
@@ -140,7 +143,7 @@ async function getSpotifyData(searchType = 'artist', query) {
         console.error('error:', error)
         tokenUpdateErrorCount++
         if(tokenUpdateErrorCount > 1) return
-        
+
         // updating token if it's expired
         updateSpotifyToken()
         $('#modal').show();
@@ -161,6 +164,7 @@ function renderData(type, data) {
         </div>
         <div id="list-container" class="scrollable pt-2"></div>
     `
+
     const searchTypes = {
         'artist': 'albums',
         'albums': 'albumTracks',
@@ -174,6 +178,7 @@ function renderData(type, data) {
         // console.log('render', type)
         // loop through the data and display it
         const items = Object.values(data)[0].items
+        
         items.forEach((item,i) => {
             // i == 0 && console.log('item', item)
             let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type] }
@@ -181,12 +186,12 @@ function renderData(type, data) {
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+                <div class="spotify-item" data-info="${obj}">
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5
-                        <p>Followers:${item.followers.total}</p>
-                        <p>Genres:${item.genres.join(', ')}</p>
+                        <h5>${item.name}</h5>
+                        <p>Followers: ${item.followers.total}</p>
+                        <p>Genres: ${item.genres.join(', ')}</p>
                     </div>
                 </div>
             `
@@ -206,10 +211,10 @@ function renderData(type, data) {
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+                <div class="spotify-item" data-info="${obj}">
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5
+                        <h5>${item.name}</h5>
                         <p>Release Date: ${item.release_date}</p>
                         <p>Total Tracks: ${item.total_tracks}</p>
                     </div>
@@ -231,8 +236,8 @@ function renderData(type, data) {
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="track d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
-                    <h5>${item.name}</h5
+                <div class="track pointer mb-2" data-info="${obj}">
+                    <p class="h6">${item.name}</p>
                 </div>
             `
         })
@@ -249,8 +254,6 @@ function renderData(type, data) {
         items.forEach((item,i) => {
             // i<5 && console.log('item', item)
 
-
-            // searchTypes[type] = 'playlistDetails'
             searchTypes[type] = 'href'
 
             let obj = { 'query': item.tracks.href, 'searchType':searchTypes[type] }
@@ -259,10 +262,10 @@ function renderData(type, data) {
 
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+                <div class="spotify-item" data-info="${obj}">
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5
+                        <h5>${item.name}</h5>
                         <p>${item.description}</p>
                     </div>
                 </div>
@@ -281,9 +284,9 @@ function renderData(type, data) {
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+                <div class="spotify-item" data-info="${obj}">
                     <img src="${item.album.images[0].url}" alt="${item.name}" class="spotify-img-sm">
-                    <h5>${item.name}</h5
+                    <h5>${item.name}</h5>
                 </div>
             `
         })
@@ -308,10 +311,10 @@ function renderData(type, data) {
                     obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
                     $('#spotify-content-div #list-container')[0].innerHTML += `
-                        <div class="track d-flex p-2 gap-2 border rounded pointer mb-2" data-info="${obj}">
+                        <div class="track" data-info="${obj}">
                             <img src="${track.album.images[2].url}" alt="${album.name}" class="spotify-img-sm">
                             <div>
-                                <h5>${track.name}</h5
+                                <h5>${track.name}</h5>
                                 <p>${artitsts}</p>
                             </div>
                         </div>
@@ -330,10 +333,10 @@ function renderData(type, data) {
                 obj = JSON.stringify(obj).replace(/"/g, '&quot;')
         
                 $('#spotify-content-div #list-container')[0].innerHTML += `
-                    <div class="spotify-item d-flex p-2 gap-2 border rounded pointer mb-2" data-info="${obj}">
+                    <div class="spotify-item" data-info="${obj}">
                         <img src="${track.album.images[2].url}" alt="${album.name}" class="spotify-img-sm">
                         <div>
-                            <h5>${track.name}</h5
+                            <h5>${track.name}</h5>
                             <p>${artitsts}</p>
                         </div>
                     </div>
@@ -360,9 +363,9 @@ function renderData(type, data) {
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+                <div class="spotify-item" data-info="${obj}">
                     <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
-                    <h5>${item.name}</h5
+                    <h5>${item.name}</h5>
                 </div>
             `
         })
@@ -386,9 +389,9 @@ function renderData(type, data) {
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
         $('#spotify-content-div #list-container')[0].innerHTML += `
-            <div class="spotify-item d-flex p-2 border rounded pointer mb-2" data-info="${obj}">
+            <div class="spotify-item" data-info="${obj}">
                 <img src="${item.icons[0].url}" alt="${item.name}" class="spotify-img-sm">
-                <h5>${item.name}</h5
+                <h5>${item.name}</h5>
             </div>
         `
     })
