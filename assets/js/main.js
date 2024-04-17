@@ -28,14 +28,8 @@ const displayRepos = (repos) => {
     
 
     repoContainerEl.innerHTML += 
-    
-    // <div class="yt-results yt-link border bg-secondary mb-3 rounded p-3" data-link="${url}">
-    //     <span>${repo.snippet.title}</span>  
-    //     <img src="${repo.snippet.thumbnails.medium.url}"
-    // </div>
-    
     `
-        <div class="yt-results yt-link" data-link="${url}">
+        <div class="yt-results yt-link bg-d1" data-link="${url}">
             <img src="${repo.snippet.thumbnails.medium.url}">
             <h5>${repo.snippet.title}</h5>  
         </div>

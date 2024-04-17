@@ -9,21 +9,21 @@
     <title>Musicfy</title>
     
 </head>
-<body class="">
+<body class="bg-c1 text-white">
     <!-- new changes -->
     <header class="bg-1 ">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 d-flex flex-column flex-md-row py-3 ">
                     <div class="d-flex">
-                        <h3 class="text-white">Musicfy</h3>
-                        <ul class="d-flex gap-2">
+                        <h3 class="text-white m-0">Musicfy</h3>
+                        <ul class="d-flex gap-2 m-0">
                             <a href="./index.html"> <li class="d-inline-block btn btn-sm text-white border ">Youtube</li> </a>
                             <a href="./spotify.html"><li class="d-inline-block btn btn-sm text-white border">Spotify</li></a>
                         </ul>
                     </div>
-                    <div class="d-flex flex-column flex-md-row ml-md-auto">
-                        <input id="searchBar" class="rounded mb-2" type="text">
+                    <div class="d-flex flex-column flex-md-row ml-md-auto gap-2">
+                        <input id="searchBar" class="rounded py-1" type="text">
                         <button id="searchBtn" class="border rounded py-0 px-3 bg-primary text-white" type="submit">Search</button>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
     <section class="d-flex" id="main-section">
         <div class="container-fluid ">
             <div class="row h-100">
-                <div class="col-12 col-md-3 bg-2 text-white d-flex flex-column py-2">
+                <div class="col-12 col-md-3 bg-d1 text-white d-flex flex-column py-2">
                     <div id="searchByBtn" class="d-flex flex-md-column gap-2">
                         <button class="searchBtn btn border text-white btn-sm" type="submit">Top Artists</button>
                         <button class="searchBtn btn border text-white btn-sm" type="submit">Top Tracks</button>
@@ -46,7 +46,7 @@
 
                 <!-- youtube content -->
                 <div class="col-12 col-md-9 d-flex flex-column test pt-2">
-                    <iframe id="iframe" class="d-none" src="" frameborder="0"></iframe>
+                    <iframe id="iframe" class="d-none mb-2" src="" frameborder="0"></iframe>
                     <div id="video-content-div" class="border rounded-4 p-3">
                         <!-- <div id="video-results"> </div> -->
                         <div id="video-results" class=""> </div>
