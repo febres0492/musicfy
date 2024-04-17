@@ -9,7 +9,7 @@ const repoSearchTerm = document.querySelector('#repo-search-term');
 //using async, await to wait until the function is complete
 const getReposByTopic = async (topic) => {
 
-    const link = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true&location=40.730610, -73.935242&location_radius=100km`
+    const link = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyD7neHHqfKylKN206rx0tnSRa5uq1nvmoY&part=snippet&maxResults=30&q=${topic}&type=video&order=title&videoEmbeddable=true&location=40.730610, -73.935242&location_radius=100km&order=relevance`
     const response = await axios.get(link)
   
       let repos = response.data.items
