@@ -2,7 +2,10 @@
 getArtistsByGenre('pop');
 
 // close modal
-$('#modalCloseBtn').on('click', ()=> $('#modal').hide())
+$('#modalCloseBtn').on('click', ()=> {
+    $('#modal').hide()
+    getArtistsByGenre('pop')
+})
 
 // getting pop artists
 $("#btn-top-artist").on('click', ()=> getArtistsByGenre('pop'))

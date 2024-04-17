@@ -1,8 +1,8 @@
 # Musicfy
 
-![Musicfy Snapshot](./assets/Screenshot.png)
-
 Musicfy is a dynamic web application designed to bring your favorite music and videos from YouTube and Spotify to one place. Explore music and videos using an intuitive interface powered by the YouTube and Spotify APIs.
+
+![Musicfy Snapshot](./assets/images/musicfy-screenshot.png)
 
 **Live Application**: [Visit Musicfy](https://febres0492.github.io/musicfy)
 
@@ -19,8 +19,8 @@ Musicfy is a dynamic web application designed to bring your favorite music and v
 - **History Navigation**: Easily navigate through your search history.
 
 ### Additional Features
-- **Serverless Authentication**: Securely log in to access personalized features.
-- **Repository**: [GitHub Repository](https://example.com)
+- **Serverless Authentication**
+- **Repository**: https://github.com/febres0492/musicfy-api
 
 ## Technologies Used
 - Bootstrap
@@ -32,4 +32,4 @@ Musicfy is a dynamic web application designed to bring your favorite music and v
 - Mike Smith
 - Faisal Salam
 - Andrea Estevez
-- Corey G
+- Corey Crespo
