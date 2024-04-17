@@ -49,11 +49,24 @@ $('#spotifySearchBtn').on('click', ()=> {
     getSpotifyData('artist',query)
 })
 
-// searching when pressing Enter
+// searching when pressing Enter and deleting token
 $('#searchBar').on('keypress', (e) => {
     const query = $('#searchBar')[0].value; 
     if(query.length === 0) return 
+    
+    // deleting token
+    if(query === 'delete token') {
+        localStorage.removeItem('spotify_access_token')
+        console.log('token deleted', localStorage.getItem('spotify_access_token'))
+        // set searchBar value to empty
+        $('#searchBar')[0].value = ''
+        return
+    }
+
+    // searching
     if(e.key === 'Enter') getSpotifyData('artist',query)
+
+    
 })
 
 
@@ -90,6 +103,7 @@ async function updateSpotifyToken() {
 async function verifySpotifyToken() {
     try {
         const tokenString = localStorage.getItem('spotify_access_token');
+        console.log(`tokenString`, tokenString)
         let obj = tokenString ? JSON.parse(tokenString) : {};
         if (!obj.access_token) {
             console.error('no token found. Updating token');
@@ -165,7 +179,7 @@ function renderData(type, data) {
             <button class="spotify-back-btn btn btn-sm border border-secondary" type="button">Back</button>
             <h5 id="resultTitle" class="m-0">${capFirst(type)}</h5>
         </div>
-        <div id="list-container" class="scrollable pt-2"></div>
+        <div id="list-container" class="scrollable pt-2 d-flex flex-wrap jcsb"></div>
     `
 
     const searchTypes = {
