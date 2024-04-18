@@ -103,7 +103,6 @@ async function updateSpotifyToken() {
 async function verifySpotifyToken() {
     try {
         const tokenString = localStorage.getItem('spotify_access_token');
-        console.log(`tokenString`, tokenString)
         let obj = tokenString ? JSON.parse(tokenString) : {};
         if (!obj.access_token) {
             console.error('no token found. Updating token');
@@ -418,3 +417,5 @@ function capFirst(str) {
     if (typeof str !== "string" || str.length === 0) return "null"
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+
