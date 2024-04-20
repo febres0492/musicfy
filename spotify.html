@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-12 d-flex flex-column  p-md-0 rounded-1 overflow-x-scroll">
                             <div class="d-flex flex-md-column gap-1 text-nowrap pb-1 p-md-0">
-                                <button id="btn-top-artist" class="btn btn-sm px-3 bg-l1" type="button">Top Artists</button>
+                                <button id="btn-top-artist" class="btn btn-sm px-3 bg-l1" type="button">Pop</button>
                                 <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="hip-hop">Hip hop</button>
                                 <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="r&b">R&B</button>
                                 <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="edm">EDM</button>
@@ -54,8 +54,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-8 fg">
-                    <div id="spotify-content-div" class="list-group fg bg-d1 p-2 mb-3">
+                <div class="col-12 col-md-8 fg rel">
+                    <!-- spinner -->
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                    <div id="spotify-content-div" class="list-group fg bg-d1 p-3 mb-3">
                         <!-- spotify content goes here -->
                     </div>
                 </div>

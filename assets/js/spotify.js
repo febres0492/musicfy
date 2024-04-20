@@ -22,11 +22,18 @@ $('#spotify-content-div').on('click', (e) => {
     // search data
     if(e.target.closest('.spotify-item')){
         const obj = JSON.parse(e.target.closest('.spotify-item').getAttribute('data-info'));
+
+        // updating preItem info
+        // console.log('getting pre item info', obj.info)
+        if('info' in obj) {
+            history.tempPreItemInfo = obj.info
+        }
+
         getSpotifyData(obj.searchType, obj.query)
         return
     }
 
-    // play track
+    // update iframe src
     if(e.target.closest('.track')){
         const obj = JSON.parse(e.target.closest('.track').getAttribute('data-info'));
         $('#spotify-iframe')[0].setAttribute('src', `https://open.spotify.com/embed/track/${obj.query}`)
@@ -34,10 +41,12 @@ $('#spotify-content-div').on('click', (e) => {
     }
 
     // go back
-    if(e.target.closest('.spotify-back-btn') && history.stack.length > 0){
+    if(e.target.closest('.spotify-back-btn')){
+        // getting last item from history stack
+        if(!history.stack.length) { return }
         const last = history.pop();
-        renderData(last.type, last.data)
-        return
+        // console.log('stack', history.stack.length)
+        renderData(last)
     }
 });
 
@@ -53,31 +62,20 @@ $('#spotifySearchBtn').on('click', ()=> {
 $('#searchBar').on('keypress', (e) => {
     const query = $('#searchBar')[0].value; 
     if(query.length === 0) return 
-    
-    // deleting token
-    if(query === 'delete token') {
-        localStorage.removeItem('spotify_access_token')
-        console.log('token deleted', localStorage.getItem('spotify_access_token'))
-        // set searchBar value to empty
-        $('#searchBar')[0].value = ''
-        return
-    }
-
-    // searching
     if(e.key === 'Enter') getSpotifyData('artist',query)
-
-    
 })
 
 
-let tokenUpdateErrorCount = -1
+let tokenUpdateLimiter = -1
 
 // history object
 const history = {
-    current:null,
+    current: {},
+    tempPreItemInfo: {},
     stack:[],
     addToStack(obj){
-        if(obj === null) return
+        if(obj === null || obj === undefined) {return} // if is null or undefined
+        if(typeof obj === 'object' && Object.values(obj).length === 0) { return } // if object and is empty
         this.stack.push(obj)
     },
     pop(){
@@ -92,7 +90,6 @@ async function updateSpotifyToken() {
         const response = await axios.get('https://musicfy-auth.netlify.app/.netlify/functions/spotify-auth')
         const token = JSON.stringify(response.data)
         localStorage.setItem('spotify_access_token', token)
-        console.log('updateSpotifyToken = ', response.data)
         return response.data
     } catch (error) {
         console.error('Failed to fetch Spotify token:', error)``
@@ -106,14 +103,11 @@ async function verifySpotifyToken() {
         let obj = tokenString ? JSON.parse(tokenString) : {};
         if (!obj.access_token) {
             console.error('no token found. Updating token');
-            obj = updateSpotifyToken(); 
+            obj = await updateSpotifyToken(); 
         }
         return obj.access_token;
     } catch (error) {
         console.error('error:', error);
-        localStorage.removeItem('spotify_access_token');
-        let data = await updateSpotifyToken(); 
-        return data.access_token;
     }
 }
 
@@ -123,8 +117,12 @@ async function getArtistsByGenre(genre) {
     return getSpotifyData('artist', query);
 }
 
-// Get Spotify data
+// geting Spotify data
 async function getSpotifyData(searchType = 'artist', query) {
+
+    // showing spinner
+    $('.spinner-border').show()
+
     const countryCode = 'US'
     const url = {
         'artist': `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=${searchType}`,
@@ -142,8 +140,6 @@ async function getSpotifyData(searchType = 'artist', query) {
         'href': query
     }
 
-    // console.log('url', url[searchType])
-
     const token = await verifySpotifyToken()
     axios.get(url[searchType], {
         headers: {
@@ -153,33 +149,72 @@ async function getSpotifyData(searchType = 'artist', query) {
     })
     .then(r => {
         history.addToStack(history.current)
-        renderData(searchType, r.data)
+        // console.log('stack', history.stack.length)
+        renderData({'type':searchType, 'data':r.data, 'preItemInfo':history.tempPreItemInfo})
+
+        // hiding spinner
+        $('.spinner-border').hide()
+        
     })
-    .catch(error => {
+    .catch(async error => {
         console.error('error:', error)
-        tokenUpdateErrorCount++
-        if(tokenUpdateErrorCount > 1) return
+        tokenUpdateLimiter++
+        if(tokenUpdateLimiter > 1) return
 
         // updating token if it's expired
-        updateSpotifyToken()
+        await updateSpotifyToken()
         $('#modal').show();
     })
 }
 
-function renderData(type, data) {
+function renderData(obj) {
+    const { type, data, preItemInfo } = obj
 
-    // update history current
-    history.current = {'type':type, 'data':data}
-    // console.log('------------------------------------------------------')
-    // console.log('type', type, 'data', data)
+    history.current = {'type':type, 'data':data, 'preItemInfo':preItemInfo}
+    history.tempPreItemInfo = {}
+
+    // console.log('stack', history.stack)
 
     $('#spotify-content-div')[0].innerHTML = `
-        <div class="d-flex gap-2 align-items-center pb-2">
-            <button class="spotify-back-btn btn btn-sm border border-secondary" type="button">Back</button>
-            <h5 id="resultTitle" class="m-0">${capFirst(type)}</h5>
+        <div class="d-flex flex-column ">
+            <div class="d-flex gap-3 pb-2">
+                <button class="spotify-back-btn btn btn-sm border border-secondary" type="button">Back</button>
+                <h5 id="resultTitle" class="m-0">${capFirst(type)}</h5>
+            </div>
+            <div id="infoBox"> 
+                <!-- this div is to append previously selected item Info when neccesary --> 
+            </div>
         </div>
         <div id="list-container" class="scrollable pt-2 d-flex flex-wrap jcsb"></div>
     `
+
+    // hidding back button
+    if(history.stack.length === 0) {
+        $('.spotify-back-btn').hide()
+    }
+
+    // adding preItem info
+    if(Object.values(preItemInfo).length){
+        // console.log('preItemInfo', preItemInfo)
+        let preItem = preItemInfo
+
+        const img = 'imgUrl' in preItem ? `<img src="${preItem.imgUrl}" alt="${preItem.name}" class="spotify-img-sm">` : ''
+        const preItemData = Object.entries(preItem).map(([key, value]) => {
+            if(key === 'imgUrl'){ return }
+            return `<p class="m-0"><b>${capFirst(key).replace('_',' ')}:</b> ${value}</p>`
+        })
+
+        const subtitle = type === 'albumTracks' ? 'Tracks' : capFirst(type)
+        $("#infoBox")[0].innerHTML = `
+            <div class="d-flex bg-l1 rounded p-2 mb-3">
+                ${img}
+                <div class="d-flex flex-column">
+                    ${preItemData.join('')}
+                </div>
+            </div>
+            <h5 id="sub-title" class="m-0">${subtitle}:</h5>
+        `
+    }
 
     const searchTypes = {
         'artist': 'albums',
@@ -192,22 +227,28 @@ function renderData(type, data) {
 
     if(type == 'artist') {
         // console.log('render', type)
-        // loop through the data and display it
+
+        $('#spotify-content-div #resultTitle')[0].innerText = "Artists"
+
+        // displaying items
         const items = Object.values(data)[0].items
-        
         items.forEach((item,i) => {
-            // i == 0 && console.log('item', item)
-            let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type] }
-            // console.log('obj', obj)
+            const info = {
+                'name':item.name ,
+                'imgUrl':item.images[0].url, 
+                'followers':item.followers.total, 
+                'genres':item.genres.join(', ')
+            }
+            let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type], 'info':info }
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
-                <div class="spotify-item" data-info="${obj}">
-                    <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
+                <div class="spotify-item d-flex" data-info="${obj}">
+                    <img src="${info.imgUrl}" alt="${info.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5>
-                        <p>Followers: ${item.followers.total}</p>
-                        <p>Genres: ${item.genres.join(', ')}</p>
+                        <h5>${info.name}</h5>
+                        <p>Followers: ${info.followers}</p>
+                        <p>Genres: ${info.genres}</p>
                     </div>
                 </div>
             `
@@ -217,22 +258,29 @@ function renderData(type, data) {
 
     if(type == 'albums') {
         // console.log('render', type)
-        // loop through the data and display it
+
+        $('#spotify-content-div #resultTitle')[0].innerText = "Artist"
+
+        // displaying items
         const items = data.items
         items.forEach((item,i) => {
-            // i == 0 && console.log('item', item)
-
-            let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type] }
-            // console.log('obj', obj)
+            const info = {
+                'name':item.name ,
+                'imgUrl':item.images[0].url, 
+                'release_date':item.release_date, 
+                'artists':item.artists.map(a => a.name).join(', ')
+            }
+            
+            let obj = { 'query': item.id, 'type': item.type, 'searchType':searchTypes[type], 'info':info}
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
                 <div class="spotify-item" data-info="${obj}">
-                    <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
+                    <img src="${info.imgUrl}" alt="${info.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5>
-                        <p>Release Date: ${item.release_date}</p>
-                        <p>Total Tracks: ${item.total_tracks}</p>
+                        <h5>${info.name}</h5>
+                        <p>Artists: ${info.artists}</p>
+                        <p>Release Date: ${info.release_date}</p>
                     </div>
                 </div>
             `
@@ -242,13 +290,13 @@ function renderData(type, data) {
 
     if(type == 'albumTracks') {
         // console.log('render', type)
-        $('#spotify-content-div #resultTitle')[0].innerText = capFirst(searchTypes[type])
 
-        // loop through the data and display it
+        $('#spotify-content-div #resultTitle')[0].innerText = "Album"
+
+        // displaying items
         const items = data.items
         items.forEach((item, i) => {
             let obj = { 'query': item.id, 'searchType':searchTypes[type] || null }
-            // i<2 && console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -265,24 +313,27 @@ function renderData(type, data) {
         
         $('#spotify-content-div #resultTitle')[0].innerText = capFirst(data.message)
         
-        // loop through the data and display it
+        // displaying items
         const items = data.playlists.items
         items.forEach((item,i) => {
-            // i<5 && console.log('item', item)
+            const info = {
+                'name':item.name ,
+                'imgUrl':item.images[0].url,
+                'description':item.description,
+            }
 
             searchTypes[type] = 'href'
 
-            let obj = { 'query': item.tracks.href, 'searchType':searchTypes[type] }
-            // i<5 && console.log('obj', obj)
+            let obj = { 'query': item.tracks.href, 'searchType':searchTypes[type], 'info':info }
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
                 <div class="spotify-item" data-info="${obj}">
-                    <img src="${item.images[0].url}" alt="${item.name}" class="spotify-img-sm">
+                    <img src="${info.imgUrl}" alt="${info.name}" class="spotify-img-sm">
                     <div class="d-flex flex-column">
-                        <h5>${item.name}</h5>
-                        <p>${item.description}</p>
+                        <h5>${info.name}</h5>
+                        <p>${info.description}</p>
                     </div>
                 </div>
             `
@@ -291,12 +342,12 @@ function renderData(type, data) {
     }
     if(type == 'tracks') {
         // console.log('render', type)
-        // loop through the data and display it
+
+        // displaying items
         const items = data.tracks
         items.forEach((item,i) => {
 
             let obj = { 'query': item.id, 'searchType':searchTypes[type] }
-            // console.log('obj', obj)
             obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -313,50 +364,38 @@ function renderData(type, data) {
         // console.log('render', type)
         if(data.items) {
             data.items.forEach((item, i) => {
-                
-                if(item.track) {
-                    const track = item.track
-                    const album = track.album
-                    const artitsts = track.artists.map(a => a.name).join(', ')
 
-                    $('#spotify-content-div #resultTitle')[0].innerText = 'Tracks'
+                if(item.track) {
+                    const info = {
+                        'name':item.track.name,
+                        'album':item.track.album,
+                        'imgUrl':item.track.album.images[2].url, 
+                        'artists':item.track.artists.map(a => a.name).join(', '),
+                    }
+                    
+                    // run only once
+                    if(i==0){
+                        $('#spotify-content-div #resultTitle')[0].innerText = 'Album'
+                        $('#sub-title')[0].innerText = 'Tracks'
+                    }
         
-                    let obj = { 'query': track.id}
-                    // i < 1 && console.log('track render item', item)
-                    // i < 1 && console.log('obj', obj)
+                    let obj = { 'query': item.track.id, 'info':info}
                     obj = JSON.stringify(obj).replace(/"/g, '&quot;')
             
                     $('#spotify-content-div #list-container')[0].innerHTML += `
                         <div class="track" data-info="${obj}">
-                            <img src="${track.album.images[2].url}" alt="${album.name}" class="spotify-img-sm">
+                            <img src="${info.imgUrl}" alt="${item.track.album.name}" class="spotify-img-sm">
                             <div>
-                                <h5>${track.name}</h5>
-                                <p>${artitsts}</p>
+                                <h5>${info.name}</h5>
+                                <p>${info.artists}</p>
                             </div>
                         </div>
                     `
                     return
                 }
 
-                // default render
-                const track = item.track
-                const album = track.album
-                const artitsts = track.artists.map(a => a.name).join(', ')
-    
-                let obj = { 'query': item.id, 'type': item.type, 'searchType': searchTypes[type] }
-                // i < 1 && console.log('default render, item', item)
-                // i < 1 && console.log('obj', obj)
-                obj = JSON.stringify(obj).replace(/"/g, '&quot;')
-        
-                $('#spotify-content-div #list-container')[0].innerHTML += `
-                    <div class="spotify-item" data-info="${obj}">
-                        <img src="${track.album.images[2].url}" alt="${album.name}" class="spotify-img-sm">
-                        <div>
-                            <h5>${track.name}</h5>
-                            <p>${artitsts}</p>
-                        </div>
-                    </div>
-                `
+                // console.log('other item', item)
+                i<1 && console.log('other item', item)
             })
             return
         }
@@ -370,12 +409,11 @@ function renderData(type, data) {
 
         $('#spotify-content-div #resultTitle')[0].innerText = capFirst(data.message)
 
-        // loop through the data and display it
+        // displaying items
         const items = data.playlists.items
         items.forEach((item,i) => {
 
         let obj = { 'query': item.id, 'searchType':searchTypes[type] }
-        // console.log('obj', obj)
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
             $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -391,17 +429,17 @@ function renderData(type, data) {
     // every other case
     const items = Object.values(data)[0].items
     const groupdName = Object.keys(data)[0]
+    // console.log('groupdName', groupdName, 'type', type, 'searchType', searchTypes[type])
+    // console.log('other cases', items, 'groupdName', groupdName )
 
     $('#spotify-content-div #resultTitle')[0].innerText = capFirst(groupdName)
 
-    // loop through the data and display it
+    // displaying items
     items.forEach((item, i) => {
 
-        if(item.name === 'Made For You') return // Made For You gives no results
+        if(item.name === 'Made For You') return // item (Made For You) gives no results
 
         let obj = { 'query': item.id, 'type': item.type, 'searchType': searchTypes[type] }
-        // i < 1 && console.log('type',type, 'item', item)
-        // i < 1 && console.log('obj', obj)
         obj = JSON.stringify(obj).replace(/"/g, '&quot;')
 
         $('#spotify-content-div #list-container')[0].innerHTML += `
@@ -417,5 +455,3 @@ function capFirst(str) {
     if (typeof str !== "string" || str.length === 0) return "null"
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-
