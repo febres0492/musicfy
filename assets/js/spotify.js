@@ -1,6 +1,16 @@
 
 getArtistsByGenre('pop');
 
+
+// getting Spotify iframe url from local storage
+const url = localStorage.getItem('spotify-iframe-url')
+if(url) {
+    $('#spotify-iframe')[0].setAttribute('src', url)
+}else{
+    $('#spotify-iframe')[0].setAttribute('src', 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M')
+}
+
+
 // close modal
 $('#modalCloseBtn').on('click', ()=> {
     $('#modal').hide()
@@ -36,7 +46,10 @@ $('#spotify-content-div').on('click', (e) => {
     // update iframe src
     if(e.target.closest('.embed-item')){
         const obj = JSON.parse(e.target.closest('.embed-item').getAttribute('data-info'));
-        $('#spotify-iframe')[0].setAttribute('src', `https://open.spotify.com/embed/${obj.type}/${obj.query}`)
+        const url = `https://open.spotify.com/embed/${obj.type}/${obj.query}`
+        $('#spotify-iframe')[0].setAttribute('src', url)
+        localStorage.setItem('spotify-iframe-url', url) // saving url to local storage
+
         window.scrollTo(0, 0) //scrolling to top of the page
         return
     }
