@@ -16,6 +16,15 @@
 
 /* global styling ---------------------------------------------------------------- */
 
+html {
+    scroll-behavior: smooth;
+    background-color: #26394c;
+}
+
+body {
+ min-height: 100vh;
+}
+
 .text-white *:not(input) {
     color: white;
 }
@@ -108,7 +117,7 @@ input{
     overflow-y: auto;
 }
 
-.spotify-item, .track {
+.spotify-item {
     display: flex ;
     padding: 10px;
     border-radius: 10px;
@@ -125,6 +134,13 @@ input{
     p {
         margin: 0;
         padding: 0
+    }
+}
+
+/* BS medium break point */
+@media screen and (min-width: 768px) {
+    .custom-height {
+        min-height: calc(100vh - 64px);
     }
 }
 
@@ -147,11 +163,13 @@ input{
 
 #spotify-iframe {
     overflow: hidden;
-    height: 82px;
+    min-height: 400px;
+    height: 100%;
+    width: 100%;
     html{ overflow: hidden; }
 }
 
-.track:last-child, .spotify-item:last-child {
+.spotify-item:last-child {
     margin-bottom: 0;
 }
 

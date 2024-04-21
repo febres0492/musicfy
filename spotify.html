@@ -8,63 +8,69 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Musicfy</title>    
 </head>
-<body class="d-flex flex-column bg-c1 text-white">
+<body class="d-flex flex-column text-white bg-d1">
+
+    <!-- header -->
+    <header class="container-fluid d-flex flex-column">
+        <div class="row">
+            <div class="col-12 pt-3 px-4 d-flex">
+                <h2 class="mr-auto">Musicfy</h2>
+                <ul class="d-flex gap-2">
+                    <a href="./index.html">  <li class="btn border btn-sm">Youtube</li> </a>
+                    <a href="./spotify.html"><li class="btn border btn-sm">Spotify</li></a>
+                </ul>
+            </div>
+        </div>
+    </header>
 
     <!-- main content -->
-    <section id="main-section" class="d-flex flex-column">
-        
-        <div class="container d-flex flex-column bg-d1 px-4 h-100">
-            <!-- header -->
-            <div class="row">
-                <div class="col-12 pt-3 d-flex">
-                    <h2 class="mr-auto">Musicfy</h2>
-                    <ul class="d-flex gap-2">
-                        <a href="./index.html">  <li class="btn border btn-sm">Youtube</li> </a>
-                        <a href="./spotify.html"><li class="btn border btn-sm">Spotify</li></a>
-                    </ul>
-                </div>
+    <section id="main-section" class="container-fluid d-flex flex-column px-4 h-100">        
+        <div class="row align-content-start fg">
+            
+            <!-- iframe container -->
+            <div class="col-12 col-md-4 d-flex flex-md-column pb-3 custom-height">
+                <iframe id="spotify-iframe" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" src="https://open.spotify.com/embed/album/1lXY618HWkwYKJWBRYR4MK?autoplay=true"></iframe>
             </div>
+            
+            <!-- search bar, buttons and dynamic content -->
+            <div class="col-12 col-md-8 fg">
+                <div class="bg-d1 p-2 rounded mb-3">
 
-            <!-- iframe contanier -->
-            <div class="row">
-                <div class="col-12 mb-2">
-                    <iframe id="spotify-iframe" class="w-100" src="https://open.spotify.com/embed/track/7EdJ8z6IBotTjO50DfzzuV" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                </div>
-            </div>
+                    <!-- search bar column -->
+                    <div class="d-flex col-md-8 col-lg-6 mb-2">
+                        <input id="searchBar" class="w-75" type="text" placeholder="Search Artist Name">
+                        <button id="spotifySearchBtn" class="btn bg-primary w-25" type="button">></button>
+                    </div>
 
-            <!-- search bar and spotify content -->
-            <div class="row align-content-start fg">
-                <div class="col-12 col-md-4 col-lg-3 d-flex flex-md-column pb-3">
-                    <div class="bg-d1 p-2 rounded w-100">
-                        <div class="d-flex mb-2">
-                            <input id="searchBar" class="w-75" type="text" placeholder="Search Artist Name">
-                            <button id="spotifySearchBtn" class="btn bg-primary w-25" type="button">></button>
-                        </div>
-                        <div class="col-12 d-flex flex-column  p-md-0 rounded-1 overflow-x-scroll">
-                            <div class="d-flex flex-md-column gap-1 text-nowrap pb-1 p-md-0">
-                                <button id="btn-top-artist" class="btn btn-sm px-3 bg-l1" type="button">Pop</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="hip-hop">Hip hop</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="r&b">R&B</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="edm">EDM</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="salsa">Salsa</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="bachata">Bachata</button>
-                                <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="rock">Rock</button>
-                                <button id="btn-categories" class="btn btn-sm px-3 bg-l1" type="button" >More ></button>
-                            </div>
+                    <!-- buttons column -->
+                    <div class="col-12 d-flex rounded-1 overflow-x-scroll">
+                        <div class="d-flex gap-1 text-nowrap pb-1">
+                            <button id="btn-top-artist" class="btn btn-sm px-3 bg-l1" type="button">Pop</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="hip-hop">Hip hop</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="r&b">R&B</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="edm">EDM</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="salsa">Salsa</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="bachata">Bachata</button>
+                            <button class="btn-search btn btn-sm px-3 bg-l1" type="button" value="rock">Rock</button>
+                            <button id="btn-categories" class="btn btn-sm px-3 bg-l1" type="button" >More ></button>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-8 fg rel">
+    
+                <div class="rel">
+                    <div id="spotify-content-div" class="list-group fg bg-d1 p-3 mb-3">
+                        <!-- spotify content goes here -->
+                    </div>
+    
                     <!-- spinner -->
                     <div class="spinner-border text-primary" role="status">
                         <span class="sr-only"></span>
                     </div>
-                    <div id="spotify-content-div" class="list-group fg bg-d1 p-3 mb-3">
-                        <!-- spotify content goes here -->
-                    </div>
                 </div>
             </div>
         </div>
+        
+        
     </section>
 
     <!-- modal -->
